@@ -1,0 +1,1 @@
+This folder contains the built output assets for the worker "kinetic-anatomy" generated at 2026-05-28T04:03:41.297Z.

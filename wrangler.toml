@@ -1,0 +1,6 @@
+name = "kinetic-anatomy"
+main = "src/worker.js"
+compatibility_date = "2026-07-25"
+account_id = "a6d9cbae720e9a59dc0487fde7b832b7"
+
+# 沒有 D1 / KV 綁定
