@@ -25,7 +25,7 @@
       };
       return new Response(JSON.stringify(manifest), { headers: { "Content-Type": "application/manifest+json", "Cache-Control": "public, max-age=86400" } });
     }
-    return new Response(getHTML(), { headers: { "Content-Type": "text/html; charset=UTF-8" } });
+    return new Response(getHTML(), { headers: { "Content-Type": "text/html; charset=UTF-8", "Cache-Control": "no-cache, must-revalidate" } });
   }
   __name(handleRequest, "handleRequest");
   function getHTML() {
