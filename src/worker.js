@@ -292,7 +292,7 @@
       ".pt{flex:1;padding:5px 3px;border-radius:7px;border:1px solid var(--border);background:transparent;color:var(--muted);font-size:10px;text-align:center;cursor:pointer;transition:all .2s}",
       ".wikibtn{flex:1;padding:5px 3px;border-radius:7px;border:1px solid var(--yellow);background:rgba(255,215,0,.08);color:var(--yellow);font-size:10px;font-weight:600;text-align:center;cursor:pointer;transition:all .2s}",
       ".wikibtn:active{background:rgba(255,215,0,.2)}",
-      "@media(max-width:768px){.rp{display:none;position:fixed;bottom:52px;left:0;right:0;width:100%;height:75vh;border-left:none;border-top:1px solid var(--border);border-radius:14px 14px 0 0;z-index:80;transform:translateY(100%);transition:transform .28s ease}.rp.on{transform:translateY(0)}.mt2{display:flex}.mb{display:block}.lc{padding:6px 8px 56px}.topbar{padding:6px 8px}.dots{display:flex}}",
+      "@media(max-width:768px){.rp{display:none;position:fixed;bottom:52px;left:0;right:0;width:100%;height:75vh;border-left:none;border-top:1px solid var(--border);border-radius:14px 14px 0 0;z-index:80;transform:translateY(100%);transition:transform .28s ease}.rp.on{display:flex;flex-direction:column;transform:translateY(0)}.mt2{display:flex}.mb{display:block}.lc{padding:6px 8px 56px}.topbar{padding:6px 8px}.dots{display:flex}}",
       "@media(max-width:400px){.hgrid{grid-template-columns:1fr}}",
       "",
       "/* ===== B+C UPGRADE: Desktop 3-col + Card panel + Responsive fonts ===== */",
