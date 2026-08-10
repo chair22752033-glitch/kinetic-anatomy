@@ -955,7 +955,6 @@
       ".bone-joint-dot { fill: #fff8ea; stroke: #8a7355; stroke-width: 1.5; opacity: 0.9; }",
       ".bone-ridge{stroke:#8a6f45;stroke-width:0.6;opacity:0.32;stroke-linecap:round;pointer-events:none}",
       ".bone-cartilage{fill:#eaf3f1;opacity:0.4;pointer-events:none}",
-      ".bone-cartilage-rib{fill:#dce8e4;stroke:#8fa39d;stroke-width:0.5;opacity:0.8}",
       ".bone-label { font-size: 8px; fill: #7ab8d4; font-family: 'Segoe UI', sans-serif; pointer-events: none; }",
       ".fascia-overlay { pointer-events: none; }",
       ".fascia-seg {",
