@@ -101,7 +101,11 @@
   "w": 87,
   "h": 420,
   "pair": true,
-  "under": true
+  "under": true,
+  "grow": [
+   0,
+   4
+  ]
  },
  "forearm": {
   "file": "../art/forearm.webp",
@@ -113,7 +117,11 @@
   "w": 89,
   "h": 420,
   "pair": true,
-  "under": true
+  "under": true,
+  "grow": [
+   9,
+   0
+  ]
  },
  "tibia_fibula": {
   "file": "../art/tibia_fibula.webp",
