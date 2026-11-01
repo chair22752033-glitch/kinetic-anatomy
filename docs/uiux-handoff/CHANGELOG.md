@@ -24,3 +24,7 @@
 ## Step 04f（試做：顱骨）（2026-11-01）
 - `src/worker.js`：`KAP_ART_DATA`（skull_front，WebP base64）、`kapApplyArt`；擬合模組記錄來源方框並在擬合後呼叫 `kapApplyArt`；放大控制移到畫布右側。
 - `docs/uiux-handoff/`：`art/`（原圖＋壓縮圖）、`src/prep-art.cjs`、`step04f-art.js`、`inject-step04f.cjs`、`test-step04f-art.cjs`、截圖 `S4f_skull_art_4views.png`。
+
+## Step 05（2026-11-01）
+- `src/worker.js`：閱讀深度按鈕、`#ka-plain` 白話層、專業層提示、肌肉／骨骼詳情改版與紙面配色、手機 `#ka-glance` 與單一 bottom sheet、對話框焦點管理、`kap_ui_v2` 收藏、停用首次閱讀彩帶、舊 Wiki／選擇器入口轉向；對比修正 CSS。無資料表改動。
+- `docs/uiux-handoff/`：`src/step05.js`、`inject-step05.cjs`、`test-step05-layers-sheet.cjs`、`test-contrast-scan.cjs`；`step05/screens/` 5 張。

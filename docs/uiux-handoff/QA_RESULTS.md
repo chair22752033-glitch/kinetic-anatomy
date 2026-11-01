@@ -85,3 +85,26 @@
 | 資料指紋 | equal=true |
 | gzip | 0.625 MB（上限 1MB） |
 | 未測 | iOS Safari 實機、圖載入失敗還原路徑的實機行為、其餘 13 塊 |
+
+## Step 05
+`node docs/uiux-handoff/src/test-step05-layers-sheet.cjs <page.html> <outdir>`（桌機 1440×900、手機 390×844、320×640）
+| 項目 | 結果 |
+|---|---|
+| 預設白話；白話層無百分比、無 AROM／筋膜／復原；名單含該動作全部肌肉 | PASS |
+| 專業層：原百分比與順序不變；百分比／AROM／復原提示存在；伸展／復原分頁回來；`kap_pro` 寫入 | PASS |
+| `P` 快捷鍵與按鈕同步；`aria-pressed` | PASS |
+| 肌肉詳情：生活用途框在解剖列之前；文字＝原 WIKI daily；順序 主要功能→起點 | PASS |
+| 英文模式：中文原文標 Source text (Chinese) | PASS |
+| 按摩分頁：注意事項與禁忌在技法之前 | PASS |
+| 對話框：role／aria-modal、焦點進入、14 次 Tab 不外逃、Esc 關閉並解除鎖定、焦點回到觸發列 | PASS |
+| 收藏：訊息與規格一致、重複不重複寫入、舊 key 不動、儲存被擋時不丟例外且有提示 | PASS |
+| 換動作會關閉殘留詳情並重建白話層 | PASS |
+| 手機：首屏可見入口（390: 底 676/844；320: 底 472/640）、☰ 消失、sheet 鎖定／遮罩／焦點／20 次 Tab 不外逃 | PASS |
+| 手機：sheet 高度不超出螢幕、捲到底最後一顆按鈕可達 | PASS |
+| 手機：從 sheet 開肌肉詳情→只剩一個面板；Esc 回 sheet 且焦點回肌肉列；再 Esc 關 sheet、解鎖、焦點回入口鈕；遮罩點擊與 ✕ 都能關 | PASS |
+| 對比掃描 14 畫面×2 尺寸 | 僅剩 1 誤報 |
+| 全回歸（導覽／動作庫／首頁／首訪／骨骼擬合／角色色／放大／筋膜／顱骨圖／溢出） | PASS |
+| 資料指紋 | equal=true |
+| gzip | 0.631 MB（免費方案上限 1MB） |
+| console／pageerror | none |
+| 未測 | iOS Safari 實機（焦點／捲動鎖定）、讀屏、200% 字級、reduced-motion 實測、WCAG 對比的完整人工審查（自動掃描只涵蓋文字節點與實色背景） |
