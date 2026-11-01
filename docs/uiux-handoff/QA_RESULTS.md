@@ -179,3 +179,12 @@
 | gzip | 939019 bytes（免費方案上限 1,048,576） |
 | wrangler.toml、.github、package.json | 與 master 相同（未改） |
 | **未測** | iPhone／Android 實機與 Safari；VoiceOver／TalkBack 讀屏；只放大文字（不縮放頁面）的 200% 文字縮放；高對比模式；圖片／漸層上的文字對比；觸控拖曳配對的手感 |
+
+## 後視版插畫
+| 項目 | 結果 |
+|---|---|
+| 正面視圖只顯示 skull_front／thoracic_ribcage／pelvis_front；背面視圖只顯示 skull_back／thoracic_ribcage_back／pelvis_back | PASS |
+| 四視圖 26 張圖、左右對稱、點擊區、失敗回退、顱骨置中於頭 | PASS |
+| 全回歸（Step 03–07 測試、對比掃描 0 項）、資料指紋 equal=true | PASS |
+| gzip | 966589 bytes（目標 < 1,000,000） |
+| 限制 | 背面的頸椎、腰椎仍是前面圖（沒有後視版）；背面肩胛骨使用背面圖；AI 圖須由專業人員核對解剖正確性 |

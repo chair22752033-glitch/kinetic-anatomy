@@ -12,7 +12,7 @@ const [,, page, OUT]=process.argv;
  // art box vs the muscle figure's head
  for(const [gd,sd] of [['male','front'],['male','back'],['female','front'],['female','back']]){
   await p.evaluate(([g,s])=>{document.querySelector('.view-cluster [data-gd="'+g+'"]').click();document.querySelector('.view-cluster [data-sd="'+s+'"]').click();},[gd,sd]);await p.waitForTimeout(600);
-  const r=await p.evaluate(()=>{const im=document.querySelector('#kart image');const ib=im.getBoundingClientRect();const lm=KAPFIT.lastLM;const bs=document.getElementById('bsvg');const m=bs.getScreenCTM();const hx=lm.cx*m.a+m.e;const hy0=lm.head.y0*m.d+m.f,hy1=lm.head.y1*m.d+m.f;return{artCx:Math.round((ib.left+ib.right)/2),headCx:Math.round(hx),artTop:Math.round(ib.top),artBottom:Math.round(ib.bottom),headTop:Math.round(hy0),headBottom:Math.round(hy1),w:Math.round(ib.width),h:Math.round(ib.height)}});
+  const r=await p.evaluate(()=>{const im=[].filter.call(document.querySelectorAll('#kart image[data-art^="skull"]'),e=>e.style.display!=='none')[0];const ib=im.getBoundingClientRect();const lm=KAPFIT.lastLM;const bs=document.getElementById('bsvg');const m=bs.getScreenCTM();const hx=lm.cx*m.a+m.e;const hy0=lm.head.y0*m.d+m.f,hy1=lm.head.y1*m.d+m.f;return{artCx:Math.round((ib.left+ib.right)/2),headCx:Math.round(hx),artTop:Math.round(ib.top),artBottom:Math.round(ib.bottom),headTop:Math.round(hy0),headBottom:Math.round(hy1),w:Math.round(ib.width),h:Math.round(ib.height)}});
   ok(Math.abs(r.artCx-r.headCx)<6,gd+'/'+sd+' skull centred on the head ('+JSON.stringify(r)+')');
   const ca=await p.$('#ca');await ca.screenshot({path:OUT+`/ART_${gd}_${sd}.png`});
  }
@@ -22,7 +22,7 @@ const [,, page, OUT]=process.argv;
  ok(await p.evaluate(()=>document.getElementById('muscle-overlay').classList.contains('on')&&/frontal|skull|額骨|頭/i.test(((document.querySelector('#muscle-overlay .mio-name')||{}).textContent||'')+((document.querySelector('#muscle-overlay .mio-ename')||{}).textContent||''))),'click on skull -> '+await p.evaluate(()=>(document.querySelector('#muscle-overlay .mio-name')||{}).textContent));
  await p.evaluate(()=>document.getElementById('muscle-overlay').classList.remove('on'));
  // real pointer hit goes to the vector skull, not swallowed by the image
- const hit=await p.evaluate(()=>{const im=document.querySelector('#kart image').getBoundingClientRect();const e=document.elementFromPoint(im.left+im.width/2,im.top+im.height*0.35);let h=e;while(h&&!(h.getAttribute&&h.getAttribute('data-key')))h=h.parentElement;return h&&h.getAttribute('data-key')});
+ const hit=await p.evaluate(()=>{const im=[].filter.call(document.querySelectorAll('#kart image[data-art^="skull"]'),e=>e.style.display!=='none')[0].getBoundingClientRect();const e=document.elementFromPoint(im.left+im.width/2,im.top+im.height*0.35);let h=e;while(h&&!(h.getAttribute&&h.getAttribute('data-key')))h=h.parentElement;return h&&h.getAttribute('data-key')});
  ok(hit==='skull','pointer on the skull art reaches the skull hit area ('+hit+')');
  console.log('errs',errs.length?errs:'none');console.log('FAILS',fail);await b.close();
 })();

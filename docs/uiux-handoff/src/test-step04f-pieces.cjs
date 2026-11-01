@@ -11,11 +11,11 @@ const [,, page, OUT]=process.argv;
  for(const [gd,sd] of [['male','front'],['male','back'],['female','front'],['female','back']]){
   await p.evaluate(([g,s])=>{document.querySelector('.view-cluster [data-gd="'+g+'"]').click();document.querySelector('.view-cluster [data-sd="'+s+'"]').click();},[gd,sd]);await p.waitForTimeout(600);
   const r=await p.evaluate(()=>{const q=n=>document.querySelector('#bone-overlay image[data-art="'+n+'"]');const bx=n=>{const e=q(n);if(!e)return null;const r=e.getBoundingClientRect();return{l:r.left,r:r.right,t:r.top,b:r.bottom,w:r.width,h:r.height}};
-   const ca=document.getElementById('bsvg').getBoundingClientRect();const rib=bx('thoracic_ribcage');
+   const ca=document.getElementById('bsvg').getBoundingClientRect();const rib=(bx('thoracic_ribcage').w?bx('thoracic_ribcage'):bx('thoracic_ribcage_back'));
    return{n:document.querySelectorAll('#bone-overlay image[data-art]').length,femurL:bx('femur'),femurR:bx('femur-R'),handL:bx('hand'),handR:bx('hand-R'),rib,body:{l:ca.left,r:ca.right,t:ca.top,b:ca.bottom},
     mid:ca.left+ca.width/2,hiddenKeys:['femur-L','femur-R','sternum','rib-5-L','rib-5-R','t6-vertebra','metacarpal-2-L','metacarpal-2-R'].map(id=>{const e=document.getElementById(id);return e?e.style.opacity==='0':'missing:'+id}),bcHidden:[].every.call(document.querySelectorAll('#bone-overlay .bc'),n=>{let c=n;while(c&&c.style.display!=='none'&&c.parentNode&&c.id!=='kax')c=c.parentNode;return c&&c.style.display==='none'}),patella:(()=>{const e=document.getElementById('patella-L');return e?getComputedStyle(e).display:'none'})()}});
   const tag=gd+'/'+sd;
-  ok(r.n===23,tag+': art images (5 midline + 9 paired x2 = 23) -> '+r.n);
+  ok(r.n===26,tag+': art images (5 midline + 9 paired x2 + 3 back-view = 26) -> '+r.n);
   ok(r.femurL&&r.femurR&&Math.abs((r.femurL.l+r.femurL.r)/2+(r.femurR.l+r.femurR.r)/2-2*r.mid)<12,tag+': femur copies mirror about the body midline');
   ok(r.handL&&r.handR&&Math.abs((r.handL.l+r.handL.r)/2+(r.handR.l+r.handR.r)/2-2*r.mid)<14,tag+': hand copies mirror about the body midline');
   ok(r.rib&&Math.abs((r.rib.l+r.rib.r)/2-r.mid)<8,tag+': ribcage centred on the midline');
@@ -24,6 +24,12 @@ const [,, page, OUT]=process.argv;
   ok(r.femurL.t>=r.body.t&&r.femurL.b<=r.body.b&&r.handL.b<=r.body.b+2,tag+': nothing leaves the figure box');
   if(sd==='back')ok(r.patella==='none',tag+': patella still hidden in back view');
  }
+ // front/back versions of the same bone: only the one for the current view is shown
+ for(const sd of ['front','back']){await p.evaluate(s=>{document.querySelector('.view-cluster [data-sd="'+s+'"]').click();},sd);await p.waitForTimeout(500);
+  const vis=await p.evaluate(()=>['skull_front','skull_back','thoracic_ribcage','thoracic_ribcage_back','pelvis_front','pelvis_back'].filter(n=>{const e=document.querySelector('#bone-overlay image[data-art="'+n+'"]');return e&&e.style.display!=='none';}));
+  const want=sd==='front'?['skull_front','thoracic_ribcage','pelvis_front']:['skull_back','thoracic_ribcage_back','pelvis_back'];
+  ok(JSON.stringify(vis)===JSON.stringify(want),sd+' view shows '+vis.join(', '));}
+ await p.evaluate(()=>{document.querySelector('.view-cluster [data-sd="front"]').click();});await p.waitForTimeout(400);
  // hit areas: real pointer on each art reaches the vector bone, click opens a bone detail
  await p.evaluate(()=>{document.querySelector('.view-cluster [data-gd="male"]').click();document.querySelector('.view-cluster [data-sd="front"]').click();});await p.waitForTimeout(600);
  for(const [art,fx,fy,expect] of [['femur',.5,.5,/^femur/],['thoracic_ribcage',.5,.5,/^(sternum|rib-|t\d+-vertebra)/],['hand',.5,.45,/(metacarpal|phalanx|capitate|hamate|scaphoid|lunate|trapez|pisiform|triquetrum)/]]){
