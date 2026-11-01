@@ -37,8 +37,11 @@ FORMAT
 - If you cannot output transparency, use a perfectly flat pure magenta
   background (#FF00FF), no gradient, no shadow, and keep bone colours away from
   magenta so I can remove the background automatically.
-- Long side at least 1600 px. Crop tightly: the bone touches the image edges
-  (leave at most 2% empty margin). One bone (or one bone group) per file.
+- Use whatever canvas size your tool gives (for example 1024x1536 for tall bones,
+  1536x1024 for wide ones). Center the bone, keep it fully inside the image with
+  about 5% transparent margin on every side. Do NOT crop the bone and do NOT let
+  any part touch or leave the edge. I will crop automatically using the transparency.
+- Draw ONE bone (or one bone group) per image. Never put several pieces on one sheet.
 - Name the files exactly as in the list below.
 
 ORIENTATION
