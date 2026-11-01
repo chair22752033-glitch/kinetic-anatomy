@@ -59,3 +59,6 @@
 
 ## 肘部對接（2026-11-01）
 - `step04f-art.js` 新增 `grow:[上,下]`（把擺放框沿 y 方向加長，來源單位）；前臂上緣加 9、肱骨下緣加 4，讓肘關節的肱骨與橈尺骨接上，不再有縫。
+
+## Step 08（2026-11-01）
+- 新增 `delivery/`（README、BASELINE_VS_AFTER、worker.js.patch、wrangler 記錄、`after_screens/` 20 張、授權）與 `src/shots08-delivery.cjs`；重寫 NEXT_PROMPT 指向剩餘工作。沒有改程式行為。

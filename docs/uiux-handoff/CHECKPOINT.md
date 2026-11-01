@@ -197,3 +197,7 @@ next_step=08（交付包）。自動化回歸 96 項全過；未測項目見 QA_
 
 ## 後視版插畫完成
 插畫骨骼 17 件、26 張圖。背面視圖：顱骨、胸廓、骨盆為後視；頸椎、腰椎仍用前面圖（無後視版）。gzip 見 QA_RESULTS。下一步：Step 08 交付包。
+
+
+## Step 08 完成（交付包）
+next_step=（無必做項；見 NEXT_PROMPT 的剩餘工作清單）。**deployed = false**。交付資料在 docs/uiux-handoff/delivery/（README、BASELINE_VS_AFTER、worker.js.patch、wrangler dry-run／dev 記錄、改版後截圖 D01–D06／M01–M08、授權）。實測：`wrangler dev --local` HTTP 200；`wrangler deploy --dry-run` Total Upload 2233.83 KiB／gzip 943.44 KiB；資料指紋 18 張表全部相同；WIKI_*_DB_2 等 7 個資料區塊與 master 逐字相同。已完成／未完成／未測的範圍寫在 delivery/README.md 與 QA_RESULTS.md；沒有宣稱「全部完成」——專業人員核對插畫與實機測試仍待做。

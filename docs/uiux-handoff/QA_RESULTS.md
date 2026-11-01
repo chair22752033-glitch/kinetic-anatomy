@@ -188,3 +188,13 @@
 | 全回歸（Step 03–07 測試、對比掃描 0 項）、資料指紋 equal=true | PASS |
 | gzip | 966589 bytes（目標 < 1,000,000） |
 | 限制 | 背面的頸椎、腰椎仍是前面圖（沒有後視版）；背面肩胛骨使用背面圖；AI 圖須由專業人員核對解剖正確性 |
+
+## Step 08 交付驗證
+| 項目 | 結果 |
+|---|---|
+| `npx wrangler dev --local --port 8799` | 啟動成功，`GET /` 回 200（delivery/wrangler_dev_check.txt） |
+| `npx wrangler deploy --dry-run` | 成功；Total Upload 2233.83 KiB／gzip 943.44 KiB；No bindings found（delivery/wrangler_dry_run.txt） |
+| 資料指紋（18 張表） | 全部相同；另 7 個資料區塊（含 WIKI_*_DB_2）與 master 逐字相同 |
+| 改版後截圖 | 20 張，從本機 wrangler dev 伺服器拍攝，console 無錯誤 |
+| 部署設定 | wrangler.toml／package.json／package-lock.json／deploy.yml 與 master 相同 |
+| 是否已部署／推 master | **否（deployed = false）** |

@@ -1,8 +1,11 @@
-繼續 Kinetic Anatomy Pro UI/UX 重構。先讀 docs/uiux-handoff/CHECKPOINT.md、DECISIONS.md（D7–D14）、QA_RESULTS.md、STEP_PLAN.md、PRESERVE_MAP.md。分支 claude/npm-install-fst7qc；不 push master。**免費方案：gzip ≤ 1MB 是硬限制（目前 0.631MB）。**
-分支條件：
-(A) 使用者已提供骨骼 PNG（依 BONE_ART_BRIEF_FOR_GPT_GEMINI.md 的檔名；skull_front、femur、hand、thoracic_ribcage 已整合；其餘件加進 art-manifest.json 並跑 inject-step04f.cjs；gzip 已 0.885MB，新增要先縮圖）→ 先做 Step 04f：每塊以 prep-art.cjs 壓縮（目標總計 ≤ 0.3MB gzip，必要時降張數／尺寸／畫質並回報），inject-step04f.cjs 加入；長骨需左右複本與背面（kbf 群組）顯示邏輯、軸骨（胸廓、骨盆、脊椎）需新增 part 與鏡像處理；向量骨留作隱形點擊區。
-(B) Step 06 已完成；下一步 Step 07（回歸與無障礙）。（舊文：Step 06：讀設計包 STEPS/06_圖譜練習與回顧.md、02_SPEC/02（D04–D06、M05–M08）。完整身體圖譜（分組＋搜尋＋明列生活別名＋詳情，接回 WIKI_MUSCLES_DB 174／WIKI_BONES_DB 53；缺 path 顯示「此構造暫無互動圖」；無結果保留搜尋詞）、輕鬆練習（保留原題型 name／detective／function／clinical／match、每日挑戰、計時與 XP；新增不計分自由練習與「查看日常用途」；桌機拖曳配對保留並提供點選配對；不叫健康分數）、我的重點（讀 kap_ui_v2 收藏清單＋原 XP／等級／成就；清除只刪 kap_ui_v2 並先確認；空狀態「還沒有收藏，從一個動作開始就好」；進度分母分開標示 常見肌群 /16、動作 /40）。
-工具與注入器皆在 docs/uiux-handoff/src/（冪等）：ka-ui-v2.css＋inject-ka-ui-v2.cjs、step03.js＋inject-step03.cjs、step04b-fit.js＋inject-step04.cjs、step04c.js＋inject-step04c.cjs、step04f-art.js＋inject-step04f.cjs、step05.js＋inject-step05.cjs；render-page.cjs 產生頁面；test-*.cjs 為回歸，test-contrast-scan.cjs 為自動對比掃描。
-完成後更新五份文件並附截圖與驗證。
+繼續 Kinetic Anatomy Pro UI/UX 改版的後續工作。先讀 docs/uiux-handoff/CHECKPOINT.md（最新狀態）、QA_RESULTS.md、DECISIONS.md（D1–D30）、delivery/README.md。分支 claude/npm-install-fst7qc；**不 push master、不 deploy（master 一收到 push 就自動發布）**，除非使用者明確要求上線。免費方案：src/worker.js gzip 目標 < 1,000,000 bytes（目前約 966,700；wrangler dry-run 943.44 KiB）。介面只用中文，英文只當肌肉／骨骼／動作名稱的第二行。
 
-新增檔案：step06.js＋inject-step06.cjs（接在 Step 05 模組之後插入）、test-step06.cjs。骨骼插畫第二批待使用者重傳（足 foot、脛腓 tibia_fibula、前臂 forearm、肱骨 humerus）；整合方式見 art-manifest.json。
+Step 01–08 都已完成；deployed = false。剩下的真實工作（依優先序，使用者決定做哪個）：
+1. 【最重要】專業人員核對 17 件 AI 骨骼插畫（肋骨對數、指節、椎骨、薦骨孔數、左右方向）；有錯的請使用者請 GPT 重畫，放進 docs/uiux-handoff/art/originals/ → `node src/reprep-all.cjs`（調整 PLAN）→ `node src/inject-step04f.cjs src/worker.js src/step04f-art.js src/art-manifest.json` → 跑 test-step04f-pieces。
+2. 背面視圖的頸椎、腰椎目前用前面圖；若使用者提供後視圖，在 art-manifest.json 加 `only:'back'` 版本並把原本的設為 `only:'front'`（做法同顱骨／胸廓／骨盆）。
+3. 使用者若要上線：先讀最新 HEAD 與 QA_RESULTS，再請使用者明確授權；上線方式是把分支合進 master（會自動發布），之後在線上實測並記錄。
+4. 實機補測：iPhone／Android Safari/Chrome、VoiceOver／TalkBack、只放大文字的 200%、高對比模式、觸控拖曳配對。把結果寫進 QA_RESULTS。
+5. 選用的設計補完：圖譜卡片肌肉縮圖（D23）、專業層「關節活動／筋膜關聯／專業手法」三鍵切換（D14）、04a 共用「目前選取」狀態、分享連結帶構造 ID。
+6. 注意：D03 等專業內容、clinical／fun 字句沒有改，若發現疑點請另列內容議題，不要自行改資料（資料指紋須維持 equal=true）。
+
+工具與注入器都在 docs/uiux-handoff/src/（冪等）：ka-ui-v2.css＋inject-ka-ui-v2.cjs、step03、step04b/c、step04f-art＋art-manifest.json＋inject-step04f.cjs＋prep-art.cjs＋reprep-all.cjs、step05、step06＋inject-step06.cjs、step07-lang＋inject-step07-lang.cjs；測試 test-*.cjs（含 test-step07-regression.cjs）；render-page.cjs 把 Worker 產成靜態 HTML 供測試；shots08-delivery.cjs 拍交付截圖。每輪結束更新五份交接文件並附真實證據。
