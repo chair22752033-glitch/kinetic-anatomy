@@ -28,3 +28,7 @@
 ## Step 05（2026-11-01）
 - `src/worker.js`：閱讀深度按鈕、`#ka-plain` 白話層、專業層提示、肌肉／骨骼詳情改版與紙面配色、手機 `#ka-glance` 與單一 bottom sheet、對話框焦點管理、`kap_ui_v2` 收藏、停用首次閱讀彩帶、舊 Wiki／選擇器入口轉向；對比修正 CSS。無資料表改動。
 - `docs/uiux-handoff/`：`src/step05.js`、`inject-step05.cjs`、`test-step05-layers-sheet.cjs`、`test-contrast-scan.cjs`；`step05/screens/` 5 張。
+
+## Step 04f（整合：股骨、手、胸廓）（2026-11-01）
+- `src/worker.js`：`KAP_ART_DATA` 擴為 4 件（skull_front、femur、hand、thoracic_ribcage）；`kapApplyArt` 改為通用放置（`pair` 鏡像右側、`box`／`sym`／`ref`／`xmode`／`xs` 對位、`under` 插在被取代的向量骨之下、`hideBc` 隱藏向量肋軟骨、失敗回退）；被取代的向量骨留作看不見的點擊區，hover／選取時以 55% 不透明度淡淡顯示。
+- `docs/uiux-handoff/`：`art/{femur,hand,thoracic_ribcage}.webp`＋`art/originals/`、`src/art-manifest.json`（各件的對位設定）、`inject-step04f.cjs` 支援 manifest、`test-step04f-pieces.cjs`、`step04f/screens/` 5 張。

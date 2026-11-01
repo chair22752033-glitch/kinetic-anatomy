@@ -1,0 +1,93 @@
+{
+ "skull_front": {
+  "file": "../art/skull_front.webp",
+  "part": "skull",
+  "keys": [
+   "skull",
+   "mandible"
+  ],
+  "w": 265,
+  "h": 360
+ },
+ "femur": {
+  "file": "../art/femur.webp",
+  "part": "thigh",
+  "keys": [
+   "femur-L"
+  ],
+  "w": 178,
+  "h": 760,
+  "pair": true,
+  "under": true
+ },
+ "hand": {
+  "file": "../art/hand.webp",
+  "part": "hand",
+  "keys": [
+   "@hand"
+  ],
+  "w": 505,
+  "h": 640,
+  "pair": true,
+  "xmode": "box",
+  "xs": 1.35
+ },
+ "thoracic_ribcage": {
+  "file": "../art/thoracic_ribcage.webp",
+  "part": "axial",
+  "keys": [
+   "sternum",
+   "rib-1-L",
+   "rib-2-L",
+   "rib-3-L",
+   "rib-4-L",
+   "rib-5-L",
+   "rib-6-L",
+   "rib-7-L",
+   "rib-8-L",
+   "rib-9-L",
+   "rib-10-L",
+   "rib-11-L",
+   "rib-12-L",
+   "t1-vertebra",
+   "t2-vertebra",
+   "t3-vertebra",
+   "t4-vertebra",
+   "t5-vertebra",
+   "t6-vertebra",
+   "t7-vertebra",
+   "t8-vertebra",
+   "t9-vertebra",
+   "t10-vertebra",
+   "t11-vertebra",
+   "t12-vertebra"
+  ],
+  "box": [
+   "rib-1-L",
+   "rib-2-L",
+   "rib-3-L",
+   "rib-4-L",
+   "rib-5-L",
+   "rib-6-L",
+   "rib-7-L",
+   "rib-8-L",
+   "rib-9-L",
+   "rib-10-L",
+   "rib-11-L",
+   "rib-12-L"
+  ],
+  "sym": true,
+  "ref": [
+   0,
+   23,
+   508,
+   598
+  ],
+  "xmode": "box",
+  "w": 508,
+  "h": 640,
+  "under": true,
+  "hideBc": true,
+  "xs": 1.12
+ }
+}
