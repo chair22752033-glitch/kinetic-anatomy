@@ -32,3 +32,8 @@
 ## Step 04f（整合：股骨、手、胸廓）（2026-11-01）
 - `src/worker.js`：`KAP_ART_DATA` 擴為 4 件（skull_front、femur、hand、thoracic_ribcage）；`kapApplyArt` 改為通用放置（`pair` 鏡像右側、`box`／`sym`／`ref`／`xmode`／`xs` 對位、`under` 插在被取代的向量骨之下、`hideBc` 隱藏向量肋軟骨、失敗回退）；被取代的向量骨留作看不見的點擊區，hover／選取時以 55% 不透明度淡淡顯示。
 - `docs/uiux-handoff/`：`art/{femur,hand,thoracic_ribcage}.webp`＋`art/originals/`、`src/art-manifest.json`（各件的對位設定）、`inject-step04f.cjs` 支援 manifest、`test-step04f-pieces.cjs`、`step04f/screens/` 5 張。
+
+## Step 06（2026-11-01）
+- `src/worker.js`：圖譜（194 肌肉＋143 骨骼，分組／部位篩選／中英＋生活別名搜尋／缺圖與缺按摩標示／無結果保留搜尋詞）、詳情補強（標題在圖上方、缺 path 以「此構造暫無互動圖」取代錯誤人形、載入失敗可重試、構造收藏鈕）、輕鬆練習（自由練習：不計分不計時、確認→解說→查看日常用途、先看解說不計對、跳過；進階挑戰收進摺疊區並保留每日／五類題型／10 秒計時／XP；配對加點選與鍵盤）、我的重點（動作＋肌肉＋骨骼收藏、空狀態、清除有確認且只清收藏、舊 XP／勳章移進階回顧、分母分開）、儲存被禁用時的記憶體備援。
+- 題目人形圖由深藍改為紙面配色。
+- `docs/uiux-handoff/`：`src/step06.js`、`inject-step06.cjs`、`test-step06.cjs`、`ka-ui-v2.css` 新增 Step 06 區段、`step06/screens/` 8 張。
