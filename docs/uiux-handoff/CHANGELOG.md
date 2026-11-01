@@ -12,3 +12,7 @@
 ## Step 03（2026-11-01）
 - `src/worker.js`：首頁改版（brand bar、主標、3 生活卡、次要卡、計數頁尾、預覽）；動作庫搜尋（`KAP.libQuery`、`kapExMatch`、`KAP_EX_ALIAS`）；`#ext-find` 按鈕；庫空狀態／計數／目前動作提示；鍵盤與焦點修正；首訪 coach tip 取代強制導覽。無資料表改動。
 - `docs/uiux-handoff/src/`：新增 `step03.js`、`inject-step03.cjs`（冪等注入）、`test-step03-library.cjs`、`test-step03-firstvisit.cjs`；`ka-ui-v2.css` 更新（含 Step 03 區段）。`step03/screens/` 8 張截圖。
+
+## Step 04b（2026-11-01）
+- `src/worker.js`：新增骨骼擬合模組（`kapFitBones`、`kapSyncOverlay`、`kapCloneMirrors` 等）；`setBoneFit` 改轉呼叫；`mountSkeleton` 在 wire 前複製鏡像；`syncBoneLayer.vec()` 顯示後呼叫擬合。無資料表改動。
+- `docs/uiux-handoff/src/`：`step04b-fit.js`、`inject-step04.cjs`、`test-step04-*.cjs`；`step04/screens/` 3 張。
