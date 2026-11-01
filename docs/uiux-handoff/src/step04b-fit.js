@@ -32,7 +32,7 @@ function kapFitInit2(bo,root){
   var els={},src={};[].forEach.call(root.querySelectorAll('[data-key]'),function(e){if(e.getAttribute('data-kapside')==='R'||!e.id)return;var b=kapBox(kapPts([e],6));if(!isFinite(b.w))return;els[e.id]=e;src[e.id]={box:b,part:kapPart(e.id,b),pts:null};});
   var groups={};Object.keys(src).forEach(function(id){var p=src[id].part;(groups[p]=groups[p]||[]).push(id);});
   var gp=function(part){var a=[];(groups[part]||[]).forEach(function(id){a=a.concat(kapPts([els[id]],6));});return a;};
-  KAPFIT.els=els;KAPFIT.groups=groups;KAPFIT.srcAx={uarm:kapAxis(gp('uarm'),.08),farm:kapAxis(gp('farm'),.08),thigh:kapAxis(gp('thigh'),.06),shin:kapAxis(gp('shin'),.06),foot:null,hand:null,skull:kapBox(kapPts([els.skull],5))};
+  KAPFIT.els=els;KAPFIT.groups=groups;KAPFIT.srcBox=src;KAPFIT.srcAx={uarm:kapAxis(gp('uarm'),.08),farm:kapAxis(gp('farm'),.08),thigh:kapAxis(gp('thigh'),.06),shin:kapAxis(gp('shin'),.06),foot:null,hand:null,skull:kapBox(kapPts([els.skull],5))};
   var hp=gp('hand');var hb=kapBox(hp);KAPFIT.srcAx.hand=[[kapMean(hp.filter(function(q){return q[1]<=hb.y0+hb.h*.12;}),0),hb.y0],[hb.cx,hb.y1]];
   var fp=gp('foot');var fb=kapBox(fp);KAPFIT.srcAx.foot=[[kapMean(fp.filter(function(q){return q[1]<=fb.y0+fb.h*.2;}),0),fb.y0+2],[kapMean(fp.filter(function(q){return q[1]>=fb.y1-fb.h*.2;}),0),fb.y1]];
   KAPFIT.done=true;}
@@ -83,7 +83,7 @@ function kapFitBones(){var bo=document.getElementById('bone-overlay');if(!bo||bo
     var isMid=!/-L$/.test(id);var mid=(part==='axial'||part==='skull');var Lt=mid?T[part]:(T.L&&T.L[part]);var Rt=mid?T[part]:(T.R&&T.R[part]);
     if(Lt)E[id].setAttribute('transform',Lt);else E[id].removeAttribute('transform');
     if(isMid)return;var rid=id.replace(/-L$/,'-R');var re=root.querySelector('[id="'+rid+'"]');if(re){if(mid){re.setAttribute('transform',T[part]+' '+MIR);}else if(Rt){re.setAttribute('transform',Rt+' '+MIR);}else re.setAttribute('transform',MIR);}});
-  KAPFIT.lastLM=lm;}
+  KAPFIT.lastLM=lm;KAPFIT.lastT=T;if(typeof kapApplyArt==='function')kapApplyArt(T);}
 function kapSyncOverlay(){var bo=document.getElementById('bone-overlay'),n=bo&&bo.querySelector('.kap-anat'),bs=document.getElementById('bsvg'),ca=document.getElementById('ca');if(!bo||!n||!bs||!ca)return;var vs=bs.getAttribute('viewBox')||'0 95 727 1280';var v=vs.split(/\s+/).map(parseFloat);
   /* overlay box == body svg box (the canvas has padding for the controls), same viewBox -> identical scale in every view */
   var br=bs.getBoundingClientRect(),cr=ca.getBoundingClientRect();if(br.width>1){bo.style.left=(br.left-cr.left)+'px';bo.style.top=(br.top-cr.top)+'px';bo.style.width=br.width+'px';bo.style.height=br.height+'px';}

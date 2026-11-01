@@ -121,3 +121,14 @@ tokens（`02_SPEC/design-tokens.json`）→ CSS 變數；四個固定主入口�
 ## 下一個最小任務
 - 若使用者交來骨骼 PNG：04f 整合（去背、檢查、以 `<image>` 套 04b 的每段變換、向量改為隱形點擊區、體積 < 1MB gzip）。
 - 否則 Step 05：白話／專業分層、daily 提前、百分比標示「教學示意值、未經個人量測」、手機 bottom sheet、統一詳情；並在此建立 04a 的單一選取狀態。
+
+
+## Step 04f 試做：插畫骨骼（2026-11-01）
+- 使用者以 ChatGPT 依 `BONE_ART_BRIEF_FOR_GPT_GEMINI.md` 產出 `skull_front`（1239×1269 WebP，**真透明**、置中、無文字、無白邊；解剖正確）。已存 `art/originals/skull_front.webp`，壓縮版 `art/skull_front.webp`（265×360，27KB）。
+- 整合機制（泛用，之後每塊骨頭只需加一筆資料）：`window.KAP_ART_DATA[piece]={href,w,h,keys,part}` 嵌入 worker；`kapApplyArt(T)` 在每次擬合後把 `<image>` 放進 `#kart`，大小＝被取代向量骨的高度、保持原圖比例、套用與向量骨相同的擬合變換；原向量骨 `opacity:0` 留作點擊／hover／百科的隱形點擊區（`#kart` `pointer-events:none`）；圖載入失敗自動還原向量。
+- 驗證（`test-step04f-art.cjs`）：顱骨在男前／男背／女前／女背皆置中於頭（誤差 <6px）；點擊顱骨 → Frontal Bone；指標落在圖上仍命中 skull；console 無錯。
+- 體積：顱骨 +27KB（base64 +36KB），gzip 0.625MB。**14 張全上預估 +350–500KB gzip，可能超過 Cloudflare 免費方案 1MB 壓縮上限**：處理辦法依序為(1)每張縮到螢幕實際大小並降畫質(2)胸廓／手／足這些大件限制尺寸(3)只換視覺影響最大的幾塊(4)改用 Workers Static Assets（需改 wrangler.toml，設計包規定不得動發布設定，需使用者同意）或付費方案。
+- 順手修：放大控制在窄畫布會壓到 AROM／Fascia 膠囊 → 移到畫布右側中間（垂直排列）。
+
+## 下一步
+等待使用者交來其餘試做圖（`thoracic_ribcage`、`femur`、`hand`）；逐張以 `prep-art.cjs` 壓縮並用 `inject-step04f.cjs` 加入（限於 `part`：axial 需要新增對應的 `part` 與鏡像處理；長骨需左右複本與 `kbf` 群組在背面的顯示邏輯）。

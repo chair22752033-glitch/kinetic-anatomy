@@ -20,3 +20,7 @@
 ## Step 04c–e（2026-11-01）
 - `src/worker.js`：角色色 CSS、`mp-idle`／`mp-stab` class（renderSVG 一行）、圖例、放大控制（`kapApplyZoom` 包裝 `renderSVG`）、筋膜缺圖提示（包裝 `updateFasciaOverlay`）；骨骼擬合改以離屏 svg 從 `BODY_PATHS` 量測。無資料表改動。
 - `docs/uiux-handoff/`：`BONE_ART_BRIEF_FOR_GPT_GEMINI.md`、`src/step04c.js`、`inject-step04c.cjs`、`test-step04c-roles-zoom-fascia.cjs`、`step04/screens/` 新增 4 張。
+
+## Step 04f（試做：顱骨）（2026-11-01）
+- `src/worker.js`：`KAP_ART_DATA`（skull_front，WebP base64）、`kapApplyArt`；擬合模組記錄來源方框並在擬合後呼叫 `kapApplyArt`；放大控制移到畫布右側。
+- `docs/uiux-handoff/`：`art/`（原圖＋壓縮圖）、`src/prep-art.cjs`、`step04f-art.js`、`inject-step04f.cjs`、`test-step04f-art.cjs`、截圖 `S4f_skull_art_4views.png`。
