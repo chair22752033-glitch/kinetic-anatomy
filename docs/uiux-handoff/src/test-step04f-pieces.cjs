@@ -15,7 +15,7 @@ const [,, page, OUT]=process.argv;
    return{n:document.querySelectorAll('#bone-overlay image[data-art]').length,femurL:bx('femur'),femurR:bx('femur-R'),handL:bx('hand'),handR:bx('hand-R'),rib,body:{l:ca.left,r:ca.right,t:ca.top,b:ca.bottom},
     mid:ca.left+ca.width/2,hiddenKeys:['femur-L','femur-R','sternum','rib-5-L','rib-5-R','t6-vertebra','metacarpal-2-L','metacarpal-2-R'].map(id=>{const e=document.getElementById(id);return e?e.style.opacity==='0':'missing:'+id}),bcHidden:[].every.call(document.querySelectorAll('#bone-overlay .bc'),n=>{let c=n;while(c&&c.style.display!=='none'&&c.parentNode&&c.id!=='kax')c=c.parentNode;return c&&c.style.display==='none'}),patella:(()=>{const e=document.getElementById('patella-L');return e?getComputedStyle(e).display:'none'})()}});
   const tag=gd+'/'+sd;
-  ok(r.n===21,tag+': 21 art images (5 midline + 8 paired x2) -> '+r.n);
+  ok(r.n===23,tag+': art images (5 midline + 9 paired x2 = 23) -> '+r.n);
   ok(r.femurL&&r.femurR&&Math.abs((r.femurL.l+r.femurL.r)/2+(r.femurR.l+r.femurR.r)/2-2*r.mid)<12,tag+': femur copies mirror about the body midline');
   ok(r.handL&&r.handR&&Math.abs((r.handL.l+r.handL.r)/2+(r.handR.l+r.handR.r)/2-2*r.mid)<14,tag+': hand copies mirror about the body midline');
   ok(r.rib&&Math.abs((r.rib.l+r.rib.r)/2-r.mid)<8,tag+': ribcage centred on the midline');

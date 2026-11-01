@@ -224,5 +224,17 @@
    365
   ],
   "under": true
+ },
+ "patella": {
+  "file": "../art/patella.webp",
+  "part": "thigh",
+  "keys": [
+   "patella-L"
+  ],
+  "w": 183,
+  "h": 200,
+  "pair": true,
+  "under": true,
+  "frontOnly": true
  }
 }

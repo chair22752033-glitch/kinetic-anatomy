@@ -1,6 +1,6 @@
 /* == KA-UI-V2 Step 04f: illustrated bone pieces (raster) placed by the same fit as the vector bones == */
 /* KAP_ART_DATA[piece] = {href:'data:image/webp;base64,..', w, h (cropped to alpha), keys:[vector ids it replaces; '@group' expands KAPFIT.groups[group]], part:'skull'|'axial'|'thigh'|'hand'|..,
-   pairMid:true -> pair of mid-group parts (clavicle, scapula); flip:true -> the art is drawn for the other side; hideIds:[ids] -> also hide these unnamed vector strokes (e.g. toes); hideBc:true -> also hide the unnamed vector costal cartilages (.bc); pair:true -> a mirrored copy is drawn for the right side; box:[ids that define the placement box, default keys]; sym:true -> box is mirrored about the midline;
+   frontOnly:true -> hidden in the back view (the patella is not seen from behind); pairMid:true -> pair of mid-group parts (clavicle, scapula); flip:true -> the art is drawn for the other side; hideIds:[ids] -> also hide these unnamed vector strokes (e.g. toes); hideBc:true -> also hide the unnamed vector costal cartilages (.bc); pair:true -> a mirrored copy is drawn for the right side; box:[ids that define the placement box, default keys]; sym:true -> box is mirrored about the midline;
    ref:[x0,y0,x1,y1] region of the art (px) that is lined up with the box (default whole image); xmode:'h' keeps the art's aspect, 'box' stretches it to the box width; xs:x factor; under:true -> drawn just below the first replaced vector bone so bones that sit in front (patella, clavicle) stay on top} */
 function kapArtKeys(a){var out=[];a.keys.forEach(function(k){if(k.charAt(0)==='@'){var g=(KAPFIT.groups||{})[k.slice(1)]||[];g.forEach(function(x){out.push(x);});}else out.push(k);});return out;}
 function kapApplyArt(T){var root=document.querySelector('#bone-overlay .kap-anat');if(!root||typeof KAP_ART_DATA==='undefined'||!KAPFIT.srcBox)return;var NS='http://www.w3.org/2000/svg';
@@ -20,7 +20,8 @@ function kapApplyArt(T){var root=document.querySelector('#bone-overlay .kap-anat
         im.setAttribute('href',a.href);
         if(a.under&&el0&&el0.parentNode)el0.parentNode.insertBefore(im,el0);else g.appendChild(im);}
       im.setAttribute('x',X.toFixed(2));im.setAttribute('y',Y.toFixed(2));im.setAttribute('width',W.toFixed(2));im.setAttribute('height',H.toFixed(2));
-      if(tf)im.setAttribute('transform',tf);else im.removeAttribute('transform');}
+      if(tf)im.setAttribute('transform',tf);else im.removeAttribute('transform');
+      im.style.display=(a.frontOnly&&typeof cSd!=='undefined'&&cSd==='back')?'none':'';}
     function first(list){var f=null;list.forEach(function(e){if(e&&(!f||(f.compareDocumentPosition(e)&Node.DOCUMENT_POSITION_PRECEDING)))f=e;});return f;}
     var mid=(a.part==='axial'||a.part==='skull');
     var flip=a.flip?' matrix(-1 0 0 1 '+(2*(X+W/2)).toFixed(2)+' 0)':'';/* art drawn for the other side: mirror it inside its own box first */
