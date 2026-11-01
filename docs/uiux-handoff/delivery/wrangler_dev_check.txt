@@ -1,0 +1,4 @@
+[wrangler:info] Ready on http://localhost:8799
+[wrangler:info] GET / 200 OK (72ms)
+[wrangler:info] GET / 200 OK (21ms)
+[wrangler:info] GET / 200 OK (13ms)

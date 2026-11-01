@@ -1,0 +1,28 @@
+{
+  "output": "/home/user/kinetic-anatomy/docs/uiux-handoff/delivery/AFTER_INSPECTION.json",
+  "tables": {
+    "BODY_PATHS": 4,
+    "EX": 40,
+    "MDB": 30,
+    "WIKI_MUSCLES_DB": 174,
+    "WIKI_BONES_DB": 53,
+    "STRETCH_DB": 17,
+    "MASSAGE_DB": 30,
+    "MIDX": 16,
+    "EXTRA_MUSCLE_PATHS": 24,
+    "EXTRA_MUSCLE_PATHS_2": 109,
+    "EXTRA_MUSCLE_PATHS_3": 35,
+    "BONE_PATHS": 44,
+    "BONE_PATHS_2": 10,
+    "ANATOMY_DETAIL_DB": 30,
+    "LANDMARK_DB": 34,
+    "FASCIA_MAP": 29,
+    "EX_EQUIP": 40,
+    "EX_LEVEL": 40
+  },
+  "comparison": {
+    "baseline": "/tmp/claude-0/-home-user-kinetic-anatomy/d3a4035a-f39f-5f9f-ada1-ce221ee8e767/scratchpad/uiux_zip/KINETIC_ANATOMY_UIUX_Claude_Pack_v1/01_AUDIT/BASELINE.json",
+    "equal": true,
+    "differences": []
+  }
+}

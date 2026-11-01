@@ -1,0 +1,336 @@
+{
+ "skull_front": {
+  "file": "../art/skull_front.webp",
+  "part": "skull",
+  "keys": [
+   "skull",
+   "mandible"
+  ],
+  "w": 191,
+  "h": 260,
+  "only": "front"
+ },
+ "femur": {
+  "file": "../art/femur.webp",
+  "part": "thigh",
+  "keys": [
+   "femur-L"
+  ],
+  "w": 98,
+  "h": 420,
+  "pair": true,
+  "under": true
+ },
+ "hand": {
+  "file": "../art/hand.webp",
+  "part": "hand",
+  "keys": [
+   "@hand"
+  ],
+  "w": 268,
+  "h": 340,
+  "pair": true,
+  "xmode": "box",
+  "xs": 1.35
+ },
+ "thoracic_ribcage": {
+  "file": "../art/thoracic_ribcage.webp",
+  "part": "axial",
+  "keys": [
+   "sternum",
+   "rib-1-L",
+   "rib-2-L",
+   "rib-3-L",
+   "rib-4-L",
+   "rib-5-L",
+   "rib-6-L",
+   "rib-7-L",
+   "rib-8-L",
+   "rib-9-L",
+   "rib-10-L",
+   "rib-11-L",
+   "rib-12-L",
+   "t1-vertebra",
+   "t2-vertebra",
+   "t3-vertebra",
+   "t4-vertebra",
+   "t5-vertebra",
+   "t6-vertebra",
+   "t7-vertebra",
+   "t8-vertebra",
+   "t9-vertebra",
+   "t10-vertebra",
+   "t11-vertebra",
+   "t12-vertebra"
+  ],
+  "box": [
+   "rib-1-L",
+   "rib-2-L",
+   "rib-3-L",
+   "rib-4-L",
+   "rib-5-L",
+   "rib-6-L",
+   "rib-7-L",
+   "rib-8-L",
+   "rib-9-L",
+   "rib-10-L",
+   "rib-11-L",
+   "rib-12-L"
+  ],
+  "sym": true,
+  "ref": [
+   0,
+   14.47,
+   318,
+   373.62
+  ],
+  "xmode": "box",
+  "w": 318,
+  "h": 400,
+  "under": true,
+  "hideBc": true,
+  "xs": 1.12,
+  "only": "front"
+ },
+ "humerus": {
+  "file": "../art/humerus.webp",
+  "part": "uarm",
+  "keys": [
+   "humerus-L"
+  ],
+  "w": 87,
+  "h": 420,
+  "pair": true,
+  "under": true,
+  "grow": [
+   0,
+   4
+  ]
+ },
+ "forearm": {
+  "file": "../art/forearm.webp",
+  "part": "farm",
+  "keys": [
+   "radius-L",
+   "ulna-L"
+  ],
+  "w": 89,
+  "h": 420,
+  "pair": true,
+  "under": true,
+  "grow": [
+   9,
+   0
+  ]
+ },
+ "tibia_fibula": {
+  "file": "../art/tibia_fibula.webp",
+  "part": "shin",
+  "keys": [
+   "tibia-L",
+   "fibula-L"
+  ],
+  "w": 104,
+  "h": 420,
+  "pair": true,
+  "under": true
+ },
+ "foot": {
+  "file": "../art/foot.webp",
+  "part": "foot",
+  "keys": [
+   "@foot"
+  ],
+  "w": 164,
+  "h": 380,
+  "pair": true,
+  "xmode": "box",
+  "xs": 1.3,
+  "under": true,
+  "hideIds": [
+   "toe-1-L",
+   "toe-1-R",
+   "toe-2-L",
+   "toe-2-R",
+   "toe-3-L",
+   "toe-3-R",
+   "toe-4-L",
+   "toe-4-R",
+   "toe-5-L",
+   "toe-5-R"
+  ]
+ },
+ "cervical_spine": {
+  "file": "../art/cervical_spine.webp",
+  "part": "axial",
+  "keys": [
+   "c1-vertebra",
+   "c2-vertebra",
+   "c3-vertebra",
+   "c4-vertebra",
+   "c5-vertebra",
+   "c6-vertebra",
+   "c7-vertebra"
+  ],
+  "w": 151,
+  "h": 300,
+  "under": true
+ },
+ "pelvis_front": {
+  "file": "../art/pelvis_front.webp",
+  "part": "axial",
+  "keys": [
+   "pelvis-L",
+   "sacrum",
+   "coccyx"
+  ],
+  "sym": true,
+  "xmode": "box",
+  "w": 340,
+  "h": 240,
+  "under": true,
+  "only": "front"
+ },
+ "clavicle": {
+  "file": "../art/clavicle.webp",
+  "part": "axial",
+  "keys": [
+   "clavicle-L"
+  ],
+  "w": 300,
+  "h": 54,
+  "pair": true,
+  "pairMid": true,
+  "under": true
+ },
+ "scapula_posterior": {
+  "file": "../art/scapula_posterior.webp",
+  "part": "axial",
+  "keys": [
+   "scapula-L"
+  ],
+  "w": 179,
+  "h": 250,
+  "pair": true,
+  "pairMid": true,
+  "flip": true,
+  "under": true
+ },
+ "lumbar_spine": {
+  "file": "../art/lumbar_spine.webp",
+  "part": "axial",
+  "keys": [
+   "l1-vertebra",
+   "l2-vertebra",
+   "l3-vertebra",
+   "l4-vertebra",
+   "l5-vertebra"
+  ],
+  "w": 163,
+  "h": 340,
+  "ref": [
+   0,
+   18.7,
+   163,
+   310.25
+  ],
+  "under": true
+ },
+ "patella": {
+  "file": "../art/patella.webp",
+  "part": "thigh",
+  "keys": [
+   "patella-L"
+  ],
+  "w": 147,
+  "h": 160,
+  "pair": true,
+  "under": true,
+  "frontOnly": true
+ },
+ "skull_back": {
+  "file": "../art/skull_back.webp",
+  "part": "skull",
+  "keys": [
+   "skull",
+   "mandible"
+  ],
+  "w": 200,
+  "h": 260,
+  "only": "back"
+ },
+ "thoracic_ribcage_back": {
+  "file": "../art/thoracic_ribcage_back.webp",
+  "part": "axial",
+  "keys": [
+   "sternum",
+   "rib-1-L",
+   "rib-2-L",
+   "rib-3-L",
+   "rib-4-L",
+   "rib-5-L",
+   "rib-6-L",
+   "rib-7-L",
+   "rib-8-L",
+   "rib-9-L",
+   "rib-10-L",
+   "rib-11-L",
+   "rib-12-L",
+   "t1-vertebra",
+   "t2-vertebra",
+   "t3-vertebra",
+   "t4-vertebra",
+   "t5-vertebra",
+   "t6-vertebra",
+   "t7-vertebra",
+   "t8-vertebra",
+   "t9-vertebra",
+   "t10-vertebra",
+   "t11-vertebra",
+   "t12-vertebra"
+  ],
+  "box": [
+   "rib-1-L",
+   "rib-2-L",
+   "rib-3-L",
+   "rib-4-L",
+   "rib-5-L",
+   "rib-6-L",
+   "rib-7-L",
+   "rib-8-L",
+   "rib-9-L",
+   "rib-10-L",
+   "rib-11-L",
+   "rib-12-L"
+  ],
+  "sym": true,
+  "ref": [
+   0,
+   26.38,
+   308,
+   371.06
+  ],
+  "xmode": "box",
+  "w": 308,
+  "h": 400,
+  "under": true,
+  "hideBc": true,
+  "xs": 1.12,
+  "only": "back"
+ },
+ "pelvis_back": {
+  "file": "../art/pelvis_back.webp",
+  "part": "axial",
+  "keys": [
+   "pelvis-L",
+   "sacrum",
+   "coccyx"
+  ],
+  "sym": true,
+  "xmode": "box",
+  "w": 340,
+  "h": 238,
+  "under": true,
+  "only": "back"
+ }
+}

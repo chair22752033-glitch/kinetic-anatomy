@@ -1,0 +1,35 @@
+/* Step 08: delivery screenshots named after the design pack screen IDs (D01-D06 desktop, M01-M08 phone).
+   usage: node shots08-delivery.cjs <url-or-file> <outdir>   (the url can be `wrangler dev --local`) */
+const { chromium } = require('/opt/node22/lib/node_modules/playwright');
+const [,, target, OUT]=process.argv;const url=/^https?:/.test(target)?target:'file://'+target;
+(async()=>{const b=await chromium.launch({executablePath:'/opt/pw-browsers/chromium'});const errs=[];
+ const mk=async(vp,mob)=>{const ctx=await b.newContext({viewport:vp,isMobile:!!mob,hasTouch:!!mob,deviceScaleFactor:mob?2:1});await ctx.addInitScript(()=>{localStorage.setItem('kap_onboard_v1','1');['lab','atlas','quest','home'].forEach(k=>localStorage.setItem('kap_coach_'+k,'1'));});const p=await ctx.newPage();p.on('pageerror',e=>errs.push(String(e)));p.on('console',x=>{if(x.type()==='error'&&!/ERR_(CONN|INTERNET|NAME)/.test(x.text()))errs.push(x.text())});await p.goto(url);await p.waitForTimeout(900);return p;};
+ const nav=async(p,v)=>{const hit=await p.evaluate(v=>{const a=[...document.querySelectorAll('.kap-pillnav button[data-view="'+v+'"],.kap-tabs button[data-view="'+v+'"]')].find(x=>x.offsetParent!==null);if(a){a.click();return true;}return false;},v);if(!hit)await p.evaluate(v=>goView(v),v);await p.waitForTimeout(500);};
+ const shot=async(p,n)=>{await p.waitForTimeout(250);await p.screenshot({path:OUT+'/'+n+'.png'});};
+ let p=await mk({width:1440,height:900});
+ await shot(p,'D01_home');
+ await p.evaluate(()=>{document.querySelector('[data-life="squat"]').click();});await p.waitForTimeout(700);await shot(p,'D02_explore');
+ await p.evaluate(()=>{document.querySelector('.layerbtn.bones').click();});await p.waitForTimeout(900);await shot(p,'D02b_explore_bones');
+ await p.evaluate(()=>{document.querySelector('.layerbtn.bones').click();document.querySelector('[data-depth="pro"]').click();});await p.waitForTimeout(600);await shot(p,'D03_professional');
+ await p.evaluate(()=>{document.querySelector('[data-depth="plain"]').click();document.querySelector('.view-cluster [data-sd="back"]').click();document.querySelector('.layerbtn.bones').click();});await p.waitForTimeout(900);await shot(p,'D02c_explore_bones_back');
+ await nav(p,'atlas');await shot(p,'D04_atlas');
+ await p.fill('#ka-at-q','站起來');await p.waitForTimeout(300);await shot(p,'D04b_atlas_search');
+ await p.fill('#ka-at-q','zzzqq');await p.waitForTimeout(300);await shot(p,'D04c_atlas_no_result');await p.fill('#ka-at-q','');
+ await nav(p,'quest');await shot(p,'D05a_practice_home');
+ await p.evaluate(()=>kapFreeStart('detective'));await p.waitForTimeout(400);await p.evaluate(()=>{const r=kapQRight(QUEST.q);[].filter.call(document.querySelectorAll('.ka-q-opt'),b=>b.dataset.v===String(r))[0].click();document.getElementById('ka-q-ok').click();});await shot(p,'D05_quiz');
+ await p.evaluate(()=>{buildQuestHome();kapFavExercise('squat');kapFavExercise('step_up');kapFavStruct('muscle','quadriceps');});await nav(p,'progress');await shot(p,'D06_takeaways');
+ await p.close();
+ p=await mk({width:390,height:844},true);
+ await shot(p,'M01_home');
+ await p.evaluate(()=>{document.querySelector('[data-life="squat"]').click();});await p.waitForTimeout(700);await shot(p,'M02_explore');
+ await p.evaluate(()=>{document.querySelector('.ka-g-open').click();});await p.waitForTimeout(600);await shot(p,'M03_detail_sheet');
+ await p.evaluate(()=>{document.querySelector('#ka-plain .ka-mrow').click();});await p.waitForTimeout(500);await shot(p,'M04_muscle_sheet');
+ await p.evaluate(()=>{closeMIO();document.getElementById('ka-sheet-close').click();});await p.waitForTimeout(400);
+ await nav(p,'atlas');await shot(p,'M05_atlas');
+ await nav(p,'quest');await p.evaluate(()=>kapFreeStart('name'));await p.waitForTimeout(400);await shot(p,'M06_quiz');
+ await p.evaluate(()=>{buildQuestHome();localStorage.removeItem('kap_ui_v2');KAP._uiMem=null;});await nav(p,'progress');await shot(p,'M07_empty');
+ await p.evaluate(()=>{goView('atlas');window.__o=_kapSMD;_kapSMD=function(){throw new Error('simulated');};showMIDetail('quadriceps');});await p.waitForTimeout(400);await shot(p,'M08_error');
+ await p.evaluate(()=>{_kapSMD=window.__o;closeMIO();});
+ await p.evaluate(()=>{goMain('squat');document.querySelector('.layerbtn.bones').click();});await p.waitForTimeout(900);await shot(p,'M02b_explore_bones');
+ await p.close();
+ console.log('errs',errs.length?errs.slice(0,5):'none');await b.close();})();
