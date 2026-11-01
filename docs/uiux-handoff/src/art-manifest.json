@@ -6,8 +6,8 @@
    "skull",
    "mandible"
   ],
-  "w": 235,
-  "h": 320
+  "w": 221,
+  "h": 300
  },
  "femur": {
   "file": "../art/femur.webp",
@@ -15,8 +15,8 @@
   "keys": [
    "femur-L"
   ],
-  "w": 122,
-  "h": 520,
+  "w": 112,
+  "h": 480,
   "pair": true,
   "under": true
  },
@@ -26,8 +26,8 @@
   "keys": [
    "@hand"
   ],
-  "w": 347,
-  "h": 440,
+  "w": 315,
+  "h": 400,
   "pair": true,
   "xmode": "box",
   "xs": 1.35
@@ -79,13 +79,13 @@
   "sym": true,
   "ref": [
    0,
-   19,
-   413,
-   486
+   17,
+   373,
+   439
   ],
   "xmode": "box",
-  "w": 413,
-  "h": 520,
+  "w": 373,
+  "h": 470,
   "under": true,
   "hideBc": true,
   "xs": 1.12
@@ -96,8 +96,8 @@
   "keys": [
    "humerus-L"
   ],
-  "w": 108,
-  "h": 520,
+  "w": 99,
+  "h": 480,
   "pair": true,
   "under": true
  },
@@ -108,8 +108,8 @@
    "radius-L",
    "ulna-L"
   ],
-  "w": 111,
-  "h": 520,
+  "w": 102,
+  "h": 480,
   "pair": true,
   "under": true
  },
@@ -120,8 +120,8 @@
    "tibia-L",
    "fibula-L"
   ],
-  "w": 129,
-  "h": 520,
+  "w": 119,
+  "h": 480,
   "pair": true,
   "under": true
  },
@@ -131,8 +131,8 @@
   "keys": [
    "@foot"
   ],
-  "w": 207,
-  "h": 480,
+  "w": 190,
+  "h": 440,
   "pair": true,
   "xmode": "box",
   "xs": 1.3,
@@ -149,5 +149,80 @@
    "toe-5-L",
    "toe-5-R"
   ]
+ },
+ "cervical_spine": {
+  "file": "../art/cervical_spine.webp",
+  "part": "axial",
+  "keys": [
+   "c1-vertebra",
+   "c2-vertebra",
+   "c3-vertebra",
+   "c4-vertebra",
+   "c5-vertebra",
+   "c6-vertebra",
+   "c7-vertebra"
+  ],
+  "w": 181,
+  "h": 360,
+  "under": true
+ },
+ "pelvis_front": {
+  "file": "../art/pelvis_front.webp",
+  "part": "axial",
+  "keys": [
+   "pelvis-L",
+   "sacrum",
+   "coccyx"
+  ],
+  "sym": true,
+  "xmode": "box",
+  "w": 400,
+  "h": 283,
+  "under": true
+ },
+ "clavicle": {
+  "file": "../art/clavicle.webp",
+  "part": "axial",
+  "keys": [
+   "clavicle-L"
+  ],
+  "w": 340,
+  "h": 61,
+  "pair": true,
+  "pairMid": true,
+  "under": true
+ },
+ "scapula_posterior": {
+  "file": "../art/scapula_posterior.webp",
+  "part": "axial",
+  "keys": [
+   "scapula-L"
+  ],
+  "w": 215,
+  "h": 300,
+  "pair": true,
+  "pairMid": true,
+  "flip": true,
+  "under": true
+ },
+ "lumbar_spine": {
+  "file": "../art/lumbar_spine.webp",
+  "part": "axial",
+  "keys": [
+   "l1-vertebra",
+   "l2-vertebra",
+   "l3-vertebra",
+   "l4-vertebra",
+   "l5-vertebra"
+  ],
+  "w": 192,
+  "h": 400,
+  "ref": [
+   0,
+   22,
+   192,
+   365
+  ],
+  "under": true
  }
 }

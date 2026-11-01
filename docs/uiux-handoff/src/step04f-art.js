@@ -1,6 +1,6 @@
 /* == KA-UI-V2 Step 04f: illustrated bone pieces (raster) placed by the same fit as the vector bones == */
 /* KAP_ART_DATA[piece] = {href:'data:image/webp;base64,..', w, h (cropped to alpha), keys:[vector ids it replaces; '@group' expands KAPFIT.groups[group]], part:'skull'|'axial'|'thigh'|'hand'|..,
-   hideIds:[ids] -> also hide these unnamed vector strokes (e.g. toes); hideBc:true -> also hide the unnamed vector costal cartilages (.bc); pair:true -> a mirrored copy is drawn for the right side; box:[ids that define the placement box, default keys]; sym:true -> box is mirrored about the midline;
+   pairMid:true -> pair of mid-group parts (clavicle, scapula); flip:true -> the art is drawn for the other side; hideIds:[ids] -> also hide these unnamed vector strokes (e.g. toes); hideBc:true -> also hide the unnamed vector costal cartilages (.bc); pair:true -> a mirrored copy is drawn for the right side; box:[ids that define the placement box, default keys]; sym:true -> box is mirrored about the midline;
    ref:[x0,y0,x1,y1] region of the art (px) that is lined up with the box (default whole image); xmode:'h' keeps the art's aspect, 'box' stretches it to the box width; xs:x factor; under:true -> drawn just below the first replaced vector bone so bones that sit in front (patella, clavicle) stay on top} */
 function kapArtKeys(a){var out=[];a.keys.forEach(function(k){if(k.charAt(0)==='@'){var g=(KAPFIT.groups||{})[k.slice(1)]||[];g.forEach(function(x){out.push(x);});}else out.push(k);});return out;}
 function kapApplyArt(T){var root=document.querySelector('#bone-overlay .kap-anat');if(!root||typeof KAP_ART_DATA==='undefined'||!KAPFIT.srcBox)return;var NS='http://www.w3.org/2000/svg';
@@ -23,9 +23,11 @@ function kapApplyArt(T){var root=document.querySelector('#bone-overlay .kap-anat
       if(tf)im.setAttribute('transform',tf);else im.removeAttribute('transform');}
     function first(list){var f=null;list.forEach(function(e){if(e&&(!f||(f.compareDocumentPosition(e)&Node.DOCUMENT_POSITION_PRECEDING)))f=e;});return f;}
     var mid=(a.part==='axial'||a.part==='skull');
-    if(mid){place(name,first(els),T[a.part]);}
-    else{place(name,first(els),T.L&&T.L[a.part]);
-      if(a.pair){var rEls=keys.map(function(id){return root.querySelector('[id="'+id.replace(/-L$/,'-R')+'"]');}).filter(Boolean);var rt=T.R&&T.R[a.part];place(name+'-R',first(rEls)||first(els),(rt?rt+' ':'')+MIR);}}
+    var flip=a.flip?' matrix(-1 0 0 1 '+(2*(X+W/2)).toFixed(2)+' 0)':'';/* art drawn for the other side: mirror it inside its own box first */
+    if(mid&&a.pair){place(name,first(els),(T[a.part]||'')+flip);var rEl=keys.map(function(id){return root.querySelector('[id="'+id.replace(/-L$/,'-R')+'"]');}).filter(Boolean);place(name+'-R',first(rEl)||first(els),(T[a.part]?T[a.part]+' ':'')+MIR+flip);}
+    else if(mid){place(name,first(els),T[a.part]);}
+    else{place(name,first(els),((T.L&&T.L[a.part])||'')+flip);
+      if(a.pair){var rEls=keys.map(function(id){return root.querySelector('[id="'+id.replace(/-L$/,'-R')+'"]');}).filter(Boolean);var rt=T.R&&T.R[a.part];place(name+'-R',first(rEls)||first(els),(rt?rt+' ':'')+MIR+flip);}}
     /* unnamed vector costal cartilages (.bc) belong to the ribcage art: hide them with it */
     if(a.hideBc){[].forEach.call(root.querySelectorAll('.bc'),function(n){var c=n;while(c.parentNode&&c.parentNode!==root&&c.parentNode.id!=='kax')c=c.parentNode;if(c&&c!==root){c.style.display='none';c.setAttribute('data-kart-bc','1');}});}
     if(a.hideIds){a.hideIds.forEach(function(id){var n=root.querySelector('[id="'+id+'"]');if(n){n.style.display='none';n.setAttribute('data-kart-bc','1');}});}
