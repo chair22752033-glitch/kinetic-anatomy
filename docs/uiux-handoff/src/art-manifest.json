@@ -6,8 +6,8 @@
    "skull",
    "mandible"
   ],
-  "w": 265,
-  "h": 360
+  "w": 235,
+  "h": 320
  },
  "femur": {
   "file": "../art/femur.webp",
@@ -15,8 +15,8 @@
   "keys": [
    "femur-L"
   ],
-  "w": 178,
-  "h": 760,
+  "w": 122,
+  "h": 520,
   "pair": true,
   "under": true
  },
@@ -26,8 +26,8 @@
   "keys": [
    "@hand"
   ],
-  "w": 505,
-  "h": 640,
+  "w": 347,
+  "h": 440,
   "pair": true,
   "xmode": "box",
   "xs": 1.35
@@ -79,15 +79,75 @@
   "sym": true,
   "ref": [
    0,
-   23,
-   508,
-   598
+   19,
+   413,
+   486
   ],
   "xmode": "box",
-  "w": 508,
-  "h": 640,
+  "w": 413,
+  "h": 520,
   "under": true,
   "hideBc": true,
   "xs": 1.12
+ },
+ "humerus": {
+  "file": "../art/humerus.webp",
+  "part": "uarm",
+  "keys": [
+   "humerus-L"
+  ],
+  "w": 108,
+  "h": 520,
+  "pair": true,
+  "under": true
+ },
+ "forearm": {
+  "file": "../art/forearm.webp",
+  "part": "farm",
+  "keys": [
+   "radius-L",
+   "ulna-L"
+  ],
+  "w": 111,
+  "h": 520,
+  "pair": true,
+  "under": true
+ },
+ "tibia_fibula": {
+  "file": "../art/tibia_fibula.webp",
+  "part": "shin",
+  "keys": [
+   "tibia-L",
+   "fibula-L"
+  ],
+  "w": 129,
+  "h": 520,
+  "pair": true,
+  "under": true
+ },
+ "foot": {
+  "file": "../art/foot.webp",
+  "part": "foot",
+  "keys": [
+   "@foot"
+  ],
+  "w": 207,
+  "h": 480,
+  "pair": true,
+  "xmode": "box",
+  "xs": 1.3,
+  "under": true,
+  "hideIds": [
+   "toe-1-L",
+   "toe-1-R",
+   "toe-2-L",
+   "toe-2-R",
+   "toe-3-L",
+   "toe-3-R",
+   "toe-4-L",
+   "toe-4-R",
+   "toe-5-L",
+   "toe-5-R"
+  ]
  }
 }
