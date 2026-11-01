@@ -201,3 +201,7 @@ next_step=08（交付包）。自動化回歸 96 項全過；未測項目見 QA_
 
 ## Step 08 完成（交付包）
 next_step=（無必做項；見 NEXT_PROMPT 的剩餘工作清單）。**deployed = false**。交付資料在 docs/uiux-handoff/delivery/（README、BASELINE_VS_AFTER、worker.js.patch、wrangler dry-run／dev 記錄、改版後截圖 D01–D06／M01–M08、授權）。實測：`wrangler dev --local` HTTP 200；`wrangler deploy --dry-run` Total Upload 2233.83 KiB／gzip 943.44 KiB；資料指紋 18 張表全部相同；WIKI_*_DB_2 等 7 個資料區塊與 master 逐字相同。已完成／未完成／未測的範圍寫在 delivery/README.md 與 QA_RESULTS.md；沒有宣稱「全部完成」——專業人員核對插畫與實機測試仍待做。
+
+
+## 插畫核對結果（使用者回報，2026-11-01）
+使用者表示已請專業人員核對 17 件 AI 骨骼插畫，結果沒有問題。這是使用者轉述，非我方驗證；原始核對紀錄不在 repo。仍待：骨骼插畫商用授權確認（ChatGPT 方案條款）、實機測試、是否上線由使用者決定（deployed = false）。

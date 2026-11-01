@@ -198,3 +198,9 @@
 | 改版後截圖 | 20 張，從本機 wrangler dev 伺服器拍攝，console 無錯誤 |
 | 部署設定 | wrangler.toml／package.json／package-lock.json／deploy.yml 與 master 相同 |
 | 是否已部署／推 master | **否（deployed = false）** |
+
+## 骨骼插畫專業核對
+| 項目 | 結果 |
+|---|---|
+| 17 件 AI 骨骼插畫的解剖正確性 | 使用者回報：已請專業人員核對，沒問題（轉述；無書面紀錄附於 repo） |
+| 插畫商用授權（所用 ChatGPT 方案條款） | 未確認，由使用者自行確認 |
