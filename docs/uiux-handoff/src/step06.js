@@ -55,7 +55,7 @@ function kapAtlasMount(){var v=document.getElementById('view-atlas');if(!v||v._k
  document.getElementById('ka-at-grid').addEventListener('click',function(e){var c=e.target.closest('[data-at]');if(c)kapAtOpen(c.dataset.at.split(':')[0],c.dataset.at.slice(c.dataset.at.indexOf(':')+1),c);else{var b=e.target.closest('[data-atact]');if(!b)return;if(b.dataset.atact==='clear'){KAP.at.q='';q.value='';kapAtlasRender(true);q.focus();}else{var s=document.getElementById('ka-at-sel');var r=document.querySelector('#ka-at-regs button');var t=(s&&s.offsetParent!==null)?s:r;if(t)t.focus();}}});}
 function kapAtOpen(type,slug,trig){KAP._detailTrigger=trig||document.activeElement;if(type==='bone')showBoneDetail(slug);else showMIDetail(slug);}
 function kapAtlasRender(keepFocus){kapAtlasMount();var z=zh(),st=KAP.at,cat=st.cat;
- var eb=document.getElementById('ka-at-eyebrow');if(!eb)return;eb.textContent='BODY ATLAS';document.getElementById('ka-at-h').textContent=z?'先找到你想認識的部位':'Find the part you want to know';
+ var eb=document.getElementById('ka-at-eyebrow');if(!eb)return;eb.textContent='身體圖譜';document.getElementById('ka-at-h').textContent=z?'先找到你想認識的部位':'Find the part you want to know';
  document.getElementById('ka-at-sub').textContent=z?'中文、英文或生活用詞都可以搜尋。先看它和生活的關係，再展開解剖資料。':'Search by Chinese, English or an everyday word. Start with how it relates to daily life, then open the anatomy.';
  var nM=kapAtItems('muscle').length,nB=kapAtItems('bone').length;
  document.getElementById('ka-at-tabs').innerHTML=[['muscle',z?'肌肉':'Muscles',nM],['bone',z?'骨骼':'Bones',nB]].map(function(t){return '<button type="button" role="tab" class="ka-at-tab'+(cat===t[0]?' on':'')+'" data-cat="'+t[0]+'" aria-selected="'+(cat===t[0])+'">'+t[1]+' <small>'+t[2]+'</small></button>';}).join('');
@@ -105,7 +105,7 @@ KAP._free={n:0,ok:0,skip:0,viewed:0};
 buildQuestHome=function(){var z=zh();QUEST.free=false;if(QUEST.timer){clearInterval(QUEST.timer);QUEST.timer=null;}
  document.getElementById('quest-play').style.display='none';var home=document.getElementById('quest-home');home.style.display='';
  var xp=getXP(),lvl=Math.floor(xp/100),stats=questStats(),streak=(typeof getStreakData==='function'?(getStreakData().streak||0):0);var pro=!document.body.classList.contains('kap-simple');
- var h='<div class="ka-pr"><header class="ka-pg-head"><span class="ka-eyebrow">LEARN AT YOUR PACE</span><h2 class="ka-pg-h">'+(z?'輕鬆練習':'Easy practice')+'</h2><p class="ka-pg-sub">'+(z?'慢慢想就好。選錯也能多認識身體一點。':'Take your time. A wrong answer still teaches you something about the body.')+'</p></header>';
+ var h='<div class="ka-pr"><header class="ka-pg-head"><span class="ka-eyebrow">自己的節奏</span><h2 class="ka-pg-h">'+(z?'輕鬆練習':'Easy practice')+'</h2><p class="ka-pg-sub">'+(z?'慢慢想就好。選錯也能多認識身體一點。':'Take your time. A wrong answer still teaches you something about the body.')+'</p></header>';
  h+='<section class="ka-pnl ka-free" id="ka-free-card"><h3>'+(z?'自由練習':'Free practice')+'</h3><p class="ka-card-sub">'+(z?'不計分、不計時。答完會看到說明，也能順著看它和日常生活的關係。':'No score, no timer. After each answer you see the explanation and can open how it shows up in daily life.')+'</p><div class="ka-modegrid">';
  KAP_FREE_MODES.forEach(function(m){h+='<button type="button" class="ka-mode" data-free="'+m[0]+'"><b>'+(z?m[1]:m[2])+'</b><span>'+(z?m[3]:m[4])+'</span></button>';});
  h+='</div></section>';
@@ -175,7 +175,7 @@ function kapMatchEnhance(){var z=zh();var board=document.querySelector('#quest-p
 function kapRecentEx(){var a=[];try{a=JSON.parse(localStorage.getItem('ka_viewed_exercises')||'[]');}catch(e){}return a.filter(function(k){return EX[k];}).slice(-4).reverse();}
 function kapExName(k){var ex=EX[k];return zh()?ex.tzh.replace(/分析$/,''):ex.ten.replace(/ ANALYSIS$/i,'');}
 buildProgress=function(){var tgt=document.getElementById('prog-wrap-view')||document.getElementById('prog-wrap');if(!tgt)return;var z=zh();var o=kapUiRead(),fv=o.favorites;
- var items=[];fv.exercises.forEach(function(k){if(EX[k])items.push({kind:'exercises',id:k,name:kapExName(k),sub:(z?CAT_ZH[EX[k].cat]:CAT_EN[EX[k].cat]),tag:z?'動作':'Movement'});});
+ var items=[];fv.exercises.forEach(function(k){if(EX[k])items.push({kind:'exercises',id:k,name:kapExName(k),sub:EX[k].ten.replace(/ ANALYSIS$/i,''),tag:z?'動作':'Movement'});});
  var M=questDB(),B=atlasBonesDB();fv.muscles.forEach(function(s){if(M[s])items.push({kind:'muscles',id:s,name:z?M[s].zh:M[s].en,sub:z?M[s].en:M[s].zh,tag:z?'肌肉':'Muscle'});});fv.bones.forEach(function(s){if(B[s])items.push({kind:'bones',id:s,name:z?B[s].zh:B[s].en,sub:z?B[s].en:B[s].zh,tag:z?'骨骼':'Bone'});});
  var storeOK=kapStorageOK();var recent=kapRecentEx();
  var viewedM=[],viewedE=[];try{viewedM=JSON.parse(localStorage.getItem('ka_viewed_muscles')||'[]');}catch(e){}try{viewedE=JSON.parse(localStorage.getItem('ka_viewed_exercises')||'[]');}catch(e){}
@@ -183,7 +183,7 @@ buildProgress=function(){var tgt=document.getElementById('prog-wrap-view')||docu
  var qs=questStats(),qT=0,qC=0;Object.keys(qs).forEach(function(k){qT+=qs[k].t;qC+=qs[k].c;});
  var mp=nMidx?Math.round(viewedM.length/nMidx*100):0,ep=nEx?Math.round(viewedE.length/nEx*100):0;
  var stats={muscles:viewedM.length,exercises:viewedE.length,streak:streak,xp:xp};
- var h='<div class="ka-tk"><header class="ka-pg-head"><span class="ka-eyebrow">YOUR TAKEAWAYS</span><h2 class="ka-pg-h">'+(z?'把今天看懂的，留給之後的自己。':'Keep what you understood today for later.')+'</h2><p class="ka-pg-sub">'+(z?'你的收藏與探索紀錄，只存在這個瀏覽器。':'Your saved items and exploration notes stay in this browser only.')+'</p></header>';
+ var h='<div class="ka-tk"><header class="ka-pg-head"><span class="ka-eyebrow">本機紀錄</span><h2 class="ka-pg-h">'+(z?'把今天看懂的，留給之後的自己。':'Keep what you understood today for later.')+'</h2><p class="ka-pg-sub">'+(z?'你的收藏與探索紀錄，只存在這個瀏覽器。':'Your saved items and exploration notes stay in this browser only.')+'</p></header>';
  if(!storeOK)h+='<p class="ka-banner" role="status">'+(z?'本次暫時無法保存：這個瀏覽器目前不允許儲存，收藏只會留到你關閉這個分頁。閱讀不受影響。':'Could not save this time: this browser blocks local storage, so saved items only last until you close this tab. Reading is unaffected.')+'</p>';
  h+='<div class="ka-tk-grid"><section class="ka-pnl ka-tk-main"><h3>'+(z?'我的重點':'My takeaways')+'</h3><p class="ka-card-sub">'+(z?'收藏的是學習內容，不是個人的運動處方。':'You are saving study content, not a personal exercise prescription.')+'</p>';
  if(!items.length)h+='<div class="ka-tk-empty"><b>'+(z?'還沒有收藏，從一個動作開始就好。':'Nothing saved yet — start with one movement.')+'</b><p>'+(z?'看完一個動作後按「留下今天的重點」，它就會出現在這裡。':'After you read a movement, press "Keep today\'s takeaway" and it shows up here.')+'</p><button type="button" class="ka-btn primary" id="ka-tk-start">'+(z?'選一個生活動作':'Pick an everyday movement')+'</button></div>';

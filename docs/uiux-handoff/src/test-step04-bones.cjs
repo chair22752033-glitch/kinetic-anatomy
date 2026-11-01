@@ -16,7 +16,7 @@ const [,, page, OUT]=process.argv;
    const found=await p.evaluate(id=>!!document.getElementById(id),id);
    if(!found){ok(false,id+' exists');continue;}
    await p.evaluate(id=>{document.getElementById(id).dispatchEvent(new MouseEvent('click',{bubbles:true}));},id);await p.waitForTimeout(250);
-   const nm=await p.evaluate(()=>(document.querySelector('#muscle-overlay .mio-name')||{}).textContent||'');
+   const nm=await p.evaluate(()=>((document.querySelector('#muscle-overlay .mio-name')||{}).textContent||'')+' '+((document.querySelector('#muscle-overlay .mio-ename')||{}).textContent||''));
    const on=await p.evaluate(()=>document.getElementById('muscle-overlay').classList.contains('on'));
    ok(on&&nm.toLowerCase().includes(exp.toLowerCase()),'click '+id+' (cloned right-hand bone) -> '+nm);
    await p.evaluate(()=>document.getElementById('muscle-overlay').classList.remove('on'));

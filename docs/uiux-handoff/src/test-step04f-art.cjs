@@ -19,7 +19,7 @@ const [,, page, OUT]=process.argv;
  // click on the (invisible) vector skull still opens its wiki entry
  await p.evaluate(()=>{document.querySelector('.view-cluster [data-gd="male"]').click();document.querySelector('.view-cluster [data-sd="front"]').click();});await p.waitForTimeout(500);
  await p.evaluate(()=>document.getElementById('skull').dispatchEvent(new MouseEvent('click',{bubbles:true})));await p.waitForTimeout(300);
- ok(await p.evaluate(()=>document.getElementById('muscle-overlay').classList.contains('on')&&/frontal|skull|Frontal/i.test((document.querySelector('#muscle-overlay .mio-name')||{}).textContent||'')),'click on skull -> '+await p.evaluate(()=>(document.querySelector('#muscle-overlay .mio-name')||{}).textContent));
+ ok(await p.evaluate(()=>document.getElementById('muscle-overlay').classList.contains('on')&&/frontal|skull|額骨|頭/i.test(((document.querySelector('#muscle-overlay .mio-name')||{}).textContent||'')+((document.querySelector('#muscle-overlay .mio-ename')||{}).textContent||''))),'click on skull -> '+await p.evaluate(()=>(document.querySelector('#muscle-overlay .mio-name')||{}).textContent));
  await p.evaluate(()=>document.getElementById('muscle-overlay').classList.remove('on'));
  // real pointer hit goes to the vector skull, not swallowed by the image
  const hit=await p.evaluate(()=>{const im=document.querySelector('#kart image').getBoundingClientRect();const e=document.elementFromPoint(im.left+im.width/2,im.top+im.height*0.35);let h=e;while(h&&!(h.getAttribute&&h.getAttribute('data-key')))h=h.parentElement;return h&&h.getAttribute('data-key')});

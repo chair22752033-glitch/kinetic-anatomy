@@ -12,7 +12,7 @@ rep(l=>l.includes('<div class="hero-sub">')&&l.includes('Muscle &amp; Fascia'),i
 const hs=w.findIndex(l=>l.includes('<div class="hub-grid">'));
 const hf=w.findIndex(l=>l.includes('<div class="hfoot">'));
 if(hs>=0&&hf>hs){
- const card=(k,n,ic,tEn,tZh,sEn,sZh)=>'<button type="button" class="ka-card" data-life="'+k+'"><span class="ka-ic"><svg viewBox="0 0 24 24" aria-hidden="true">'+ic+'</svg></span><span class="ka-tx"><span class="ka-k">'+n+' / EVERYDAY MOVEMENT</span><span class="ka-t">'+L(tEn,tZh)+'</span><span class="ka-s">'+L(sEn,sZh)+'</span></span></button>';
+ const card=(k,n,ic,tEn,tZh,sEn,sZh)=>'<button type="button" class="ka-card" data-life="'+k+'"><span class="ka-ic"><svg viewBox="0 0 24 24" aria-hidden="true">'+ic+'</svg></span><span class="ka-tx"><span class="ka-k">'+n+' / 生活動作</span><span class="ka-t">'+L(tEn,tZh)+'</span><span class="ka-s">'+L(sEn,sZh)+'</span></span></button>';
  const html=[
  '<div class="ka-home">',
  ' <div class="ka-top">',

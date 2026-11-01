@@ -44,7 +44,7 @@ const [,, page, OUT]=process.argv;
   await p.evaluate(()=>loadEx('lunge'));await p.waitForTimeout(200);
   await p.evaluate(()=>document.querySelector('.layerbtn[data-ly="fascia"]').click());await p.waitForTimeout(300);
   const note=await p.evaluate(()=>{const n=document.getElementById('ka-fascia-note');return n&&getComputedStyle(n).display!=='none'?n.textContent:null});
-  ok(!!note&&/1 fascial line/.test(note),'lunge: fascia note shown ('+note+')');
+  ok(!!note&&/1 fascial line|1 條筋膜線/.test(note),'lunge: fascia note shown ('+note+')');
   await p.evaluate(()=>loadEx('squat'));await p.waitForTimeout(300);
   ok(await p.evaluate(()=>{const n=document.getElementById('ka-fascia-note');return !n||getComputedStyle(n).display==='none'}),'squat: no fascia note (all its lines drawn)');
   await p.evaluate(()=>document.querySelector('.layerbtn[data-ly="fascia"]').click());await p.waitForTimeout(200);

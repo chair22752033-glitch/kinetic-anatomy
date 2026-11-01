@@ -33,7 +33,7 @@ const [,, page, OUT]=process.argv;
   await p.fill('#lib-search','股四頭肌'); await p.waitForTimeout(150);
   ok((await cnt())>3,'muscle name search 股四頭肌 -> '+await cnt());
   await p.fill('#lib-search','zzzz'); await p.waitForTimeout(150);
-  ok(await cnt()===0 && await p.evaluate(()=>!!document.getElementById('lib-clear-all')&&document.querySelector('.lib-empty').textContent.includes('Nothing matched')),'no results -> empty state + clear button');
+  ok(await cnt()===0 && await p.evaluate(()=>!!document.getElementById('lib-clear-all')&&document.querySelector('.lib-empty').textContent.match(/Nothing matched|還沒找到/)),'no results -> empty state + clear button');
   await p.screenshot({path:OUT+`/S3_${t}_lib_empty.png`});
   await p.click('#lib-clear-all'); await p.waitForTimeout(200);
   ok(await cnt()===40 && await p.evaluate(()=>document.getElementById('lib-search').value===''),'clear -> back to 40 and input emptied');
