@@ -8,3 +8,7 @@
 ## Step 02（2026-10-31）
 - `src/worker.js`：新增 `KA-UI-V2` CSS 區塊（tokens＋導覽＋動作頁容器＋被截修正）；靜態 `<nav>` 改為空容器，由 `KAP_ROUTES` 在載入時產生；加入 `kapBuildNav/kapSyncNav` 並包裝 `goHome/goMain/goView`。無資料表、path、key、slug 改動。
 - 新增 `docs/uiux-handoff/src/`（CSS 原始碼、注入器、渲染工具）與 `step02/screens/`（S02_* 10 張）。
+
+## Step 03（2026-11-01）
+- `src/worker.js`：首頁改版（brand bar、主標、3 生活卡、次要卡、計數頁尾、預覽）；動作庫搜尋（`KAP.libQuery`、`kapExMatch`、`KAP_EX_ALIAS`）；`#ext-find` 按鈕；庫空狀態／計數／目前動作提示；鍵盤與焦點修正；首訪 coach tip 取代強制導覽。無資料表改動。
+- `docs/uiux-handoff/src/`：新增 `step03.js`、`inject-step03.cjs`（冪等注入）、`test-step03-library.cjs`、`test-step03-firstvisit.cjs`；`ka-ui-v2.css` 更新（含 Step 03 區段）。`step03/screens/` 8 張截圖。

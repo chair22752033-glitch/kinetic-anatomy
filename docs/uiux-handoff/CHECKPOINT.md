@@ -1,7 +1,7 @@
 # CHECKPOINT
 
 - 更新：2026-10-31
-- 目前步驟：**Step 02 完成（tokens、四入口、容器、修被截）**；next_step = **03 生活入口與動作庫（含搜尋）**
+- 目前步驟：**Step 03 完成（生活首頁、動作庫搜尋、就地提示）**；next_step = **04 人體與互動（骨骼對位、右半黑色、單一選取狀態）**
 - 分支：`claude/npm-install-fst7qc`（沿用；已 fast-forward 到 master `0185899`，無本機分歧）
 - 基準 HEAD：`0185899d5ea3bac8e7e15c17e0bc590e18348d43`（= 設計包基準）；Step 02 的改動在其上，見 git log
 - `src/worker.js` git blob：`37e366155bdd344655a8fae76dbfa1b7d2fbd1cb`（= 設計包 BASELINE.json 的 src_git_blob）
@@ -52,3 +52,22 @@ tokens（`02_SPEC/design-tokens.json`）→ CSS 變數；四個固定主入口�
 
 ## 下一個最小任務（Step 03）
 03a 首頁（主標＋3 生活入口 squat/overhead_press/step_up）· 03b 動作庫＋中英搜尋（取代滑動為主要找動作方式；`navKeys()` 與篩選同源、無 0/0）· 03c 就地提示（保留 kap_onboard_v1）。
+
+
+## Step 03 結果（2026-11-01）
+**已做（`src/worker.js`；資料表零改動）**
+- 03a 首頁：品牌列（身體動作地圖／Everyday Body Map）、主標、主按鈕「從坐下、站起來開始」、三張生活卡（→ `squat`／`overhead_press`／`step_up`，保留原動作與資料）、「全部 N 個動作」、找身體部位／我的重點兩張次要卡、動作／肌肉／骨骼百科筆數（執行時從資料表計數：40／174／53）。桌機右側為原 `BODY_PATHS` 的前後視圖預覽（只上色，不畫新路徑）。中英文完整。`hub-continue` 與 `refreshHubContinue` 保留。
+- 03b 動作庫：新增搜尋（中英、拆詞全符合、可清除、Esc 先清字再關）、結果計數（aria-live）、搜尋無結果顯示規格文案＋「清除篩選」、`libFilteredKeys` 納入搜尋 → `navKeys()`（上一個／下一個／滑動／鍵盤）同源。搜尋範圍：動作代碼、中英名稱、肌肉中英名、分類／器材中英、**檢視用別名表** `KAP_EX_ALIAS`（坐下、舉高、階梯、跑步等；不寫入 EX、不含症狀詞）。動作頁新增常駐「找動作」按鈕（`#ext-find`）；標題點選仍可開庫。標題計數在篩選中顯示「· filtered／· 篩選中」；目前動作不在結果時，庫內顯示提示且上一個／下一個回退完整列表（不會 0/0）。
+- 03b 順手修的既有問題：①舊的全域 `ArrowLeft/Right` 以完整列表換動作、與篩選版同時觸發且無輸入框保護 → 移除舊版；②`?` 在輸入框內會開說明 → 加輸入框保護；③庫內卡片列高被壓成 44px 疊字 → `align-content:start; grid-auto-rows:min-content`；④首訪 coach tip（z-index 10015）會蓋住動作庫 → 降 z-index，庫開啟時隱藏；⑤庫關閉後焦點回到觸發按鈕；⑥庫加 `role=dialog aria-modal`。
+- 03c：首次訪問不再自動彈出 60 秒導覽，改為首頁就地 coach tip（可「Got it」、關閉後不再出現）；導覽仍可由首頁連結／說明進入，略過／完成仍寫入原 `kap_onboard_v1`。「繼續上次」只讀合法 EX id（無效或首次→顯示導覽連結，不顯示假紀錄）。
+
+**驗證（QA_RESULTS）**：見 QA_RESULTS.md「Step 03」。資料指紋 equal、gzip 0.59MB、無橫向溢出、console 無錯。
+
+**刻意延後／仍待處理**
+- 非焦點肌肉仍深灰；骨骼與肌肉不貼合、右半骨骼全黑（Step 04b）。
+- 動作頁左欄「現在一起認識」卡與三步驟、右欄白話／專業分層（Step 04–05）。
+- 首頁沒有「繼續上次」獨立大卡（沿用 `hub-continue` 列）；設計包 D01 無此元素，保留原功能。
+- 未做真機 Safari、線上站。
+
+## 下一個最小任務（Step 04）
+04a 單一選取狀態（動作／模型／視角／選取構造／圖層／縮放）· **04b 骨骼層與肌肉人形共用同一 viewBox/縮放，頭不被截；修右半骨骼黑色（鏡像 `<use>` 的 fill）；四視圖驗證** · 04c 角色色映射（主力 coral／幫手 amber／穩定 blue，保留資料 col）· 04d 放大 1–2.5＋重設 · 04e FASCIA 缺圖 fallback。
