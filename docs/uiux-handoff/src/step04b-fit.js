@@ -26,8 +26,9 @@ function kapPart(id,box){var k=id.replace(/-L$/,'');
   return'axial';}
 /* mirrored copies: a <use> loses the stylesheet inside its shadow tree (right-hand bones rendered black) -> real clones; run BEFORE KAP_ANAT.wire */
 function kapCloneMirrors(bo){var root=bo&&bo.querySelector('.kap-anat');if(!root)return;[].slice.call(root.querySelectorAll('use')).forEach(function(u){var href=(u.getAttribute('href')||u.getAttribute('xlink:href')||'');var ref=href?root.querySelector('[id="'+href.replace(/^#/,'')+'"]'):null;if(!ref)return;var c=ref.cloneNode(true);c.removeAttribute('transform');[].forEach.call(c.querySelectorAll('[id]'),function(n){n.removeAttribute('id');});c.id=u.id;c.setAttribute('data-key',u.getAttribute('data-key')||ref.getAttribute('data-key')||'');c.setAttribute('data-kapside','R');u.parentNode.replaceChild(c,u);});}
-function kapFitInit(bo){var root=bo&&bo.querySelector('.kap-anat');if(!root||KAPFIT.done)return;
-  /* 2) source geometry of every left / midline bone, measured untransformed */
+function kapFitInit(bo){var root=bo&&bo.querySelector('.kap-anat');if(!root||KAPFIT.done)return;var saved={};['kax','kbf','kbb'].forEach(function(id){var g=document.getElementById(id);if(g){saved[id]=g.style.display;g.style.display='';}});try{kapFitInit2(bo,root);}finally{Object.keys(saved).forEach(function(id){document.getElementById(id).style.display=saved[id];});}}
+function kapFitInit2(bo,root){
+
   var els={},src={};[].forEach.call(root.querySelectorAll('[data-key]'),function(e){if(e.getAttribute('data-kapside')==='R'||!e.id)return;var b=kapBox(kapPts([e],6));if(!isFinite(b.w))return;els[e.id]=e;src[e.id]={box:b,part:kapPart(e.id,b),pts:null};});
   var groups={};Object.keys(src).forEach(function(id){var p=src[id].part;(groups[p]=groups[p]||[]).push(id);});
   var gp=function(part){var a=[];(groups[part]||[]).forEach(function(id){a=a.concat(kapPts([els[id]],6));});return a;};
@@ -35,25 +36,29 @@ function kapFitInit(bo){var root=bo&&bo.querySelector('.kap-anat');if(!root||KAP
   var hp=gp('hand');var hb=kapBox(hp);KAPFIT.srcAx.hand=[[kapMean(hp.filter(function(q){return q[1]<=hb.y0+hb.h*.12;}),0),hb.y0],[hb.cx,hb.y1]];
   var fp=gp('foot');var fb=kapBox(fp);KAPFIT.srcAx.foot=[[kapMean(fp.filter(function(q){return q[1]<=fb.y0+fb.h*.2;}),0),fb.y0+2],[kapMean(fp.filter(function(q){return q[1]>=fb.y1-fb.h*.2;}),0),fb.y1]];
   KAPFIT.done=true;}
-/* body landmarks of the CURRENT view, from the muscle paths themselves (left = image-left) */
-function kapBodyPts(slugs,side,cx){var els=[];slugs.forEach(function(s){document.querySelectorAll('#bsvg path[data-slug="'+s+'"]').forEach(function(p){var b=p.getBBox();var c=b.x+b.width/2;if(side==='L'?c<cx:c>=cx)els.push(p);});});return kapPts(els,5);}
-function kapLandmarks(){var bs=document.getElementById('bsvg');if(!bs)return null;
-  var back=!bs.querySelector('path[data-slug="quadriceps"]');
-  var hairP=kapPts([].slice.call(bs.querySelectorAll('path[data-slug="hair"]')),4);var hd=kapPts([].slice.call(bs.querySelectorAll('path[data-slug="head"]')),4);
-  /* seen from behind the 'head' path is only the back of the skull (or missing): use head+hair */
-  if(back||!hd.length)hd=hd.concat(hairP);if(!hd.length)return null;var hb=kapBox(hd),cx=hb.cx;
-  var nk=kapPts([].slice.call(bs.querySelectorAll('path[data-slug="neck"]')),4);var nb=nk.length?kapBox(nk):null;if(nb)cx=nb.cx;var out={cx:cx,head:hb,neck:nb,back:back,L:{},R:{}};
-  ['L','R'].forEach(function(s){var P=function(a){return kapBodyPts(a,s,cx);};
+/* body landmarks of the CURRENT view, measured from BODY_PATHS data in an off-screen svg (works whatever layers are visible; cached per view) */
+var KAPM={svg:null,cache:{}};
+function kapMeasureSvg(){if(!KAPM.svg){var s=document.createElementNS('http://www.w3.org/2000/svg','svg');s.setAttribute('width','10');s.setAttribute('height','10');s.setAttribute('aria-hidden','true');s.style.cssText='position:fixed;left:-99999px;top:0;visibility:hidden;pointer-events:none';document.body.appendChild(s);KAPM.svg=s;}return KAPM.svg;}
+function kapBodyEls(slugs,bucket){var parts=BODY_PATHS[vk()]||[],svg=kapMeasureSvg(),out=[];parts.forEach(function(p){if(slugs.indexOf(p.slug)<0)return;['common','left','right'].forEach(function(side){(p[side]||[]).forEach(function(d){var el=document.createElementNS('http://www.w3.org/2000/svg','path');el.setAttribute('d',d);svg.appendChild(el);out.push(el);});});});return out;}
+function kapSidePts(els,side,cx){var use=els.filter(function(e){var b=e.getBBox();var c=b.x+b.width/2;return side==='L'?c<cx:c>=cx;});return kapPts(use,5);}
+function kapLandmarks(){var key=vk();if(KAPM.cache[key])return KAPM.cache[key];var parts=BODY_PATHS[key]||[];if(!parts.length)return null;var svg=kapMeasureSvg();
+  var has=function(sl){return parts.some(function(p){return p.slug===sl;});};var back=!has('quadriceps');
+  var headEls=kapBodyEls(['head']),hairEls=kapBodyEls(['hair']),neckEls=kapBodyEls(['neck']);
+  var hd=kapPts(headEls,4);if(back||!hd.length)hd=hd.concat(kapPts(hairEls,4));if(!hd.length){svg.innerHTML='';return null;}var hb=kapBox(hd),cx=hb.cx;
+  var nk=kapPts(neckEls,4);var nb=nk.length?kapBox(nk):null;if(nb)cx=nb.cx;
+  var out={cx:cx,head:hb,neck:nb,back:back,L:{},R:{}};
+  var E={};['deltoids','biceps','triceps','forearm','hands','hamstring','quadriceps','knees','tibialis','calves','ankles','feet','gluteal'].forEach(function(sl){E[sl]=kapBodyEls([sl]);});
+  ['L','R'].forEach(function(s){var P=function(a){var els=[];a.forEach(function(sl){els=els.concat(E[sl]||[]);});return kapSidePts(els,s,cx);};
     var ub=P(['deltoids','biceps','triceps']),arm=P(['biceps','triceps']),fa=P(['forearm']),ha=P(['hands']);
     var th=P(back?['hamstring']:['quadriceps']),kn=P(['knees']),sh=P(back?['calves']:['tibialis','calves']),an=P(['ankles']),ft=P(['feet']),gl=P(['gluteal']);
     var o={};
-    if(ub.length&&fa.length){var uax=kapAxis(ub,.1);var fax=kapAxis(fa,.1);var elbowY=arm.length?kapBox(arm).y1:fax[0][1];var J1=[ (fax[0][0]+kapAxis(arm.length?arm:ub,.1)[1][0])/2 , (fax[0][1]+elbowY)/2 ];var J0=kapLerp(uax[0],uax[1],.12);var J2=fax[1];var J3=J2;if(ha.length){var far=0;ha.forEach(function(q){var d=Math.hypot(q[0]-J2[0],q[1]-J2[1]);if(d>far){far=d;J3=q;}});}o.J0=J0;o.J1=J1;o.J2=J2;o.J3=J3;}
-    if(th.length){var tax=kapAxis(th,.08);var thb=kapBox(th);var gb=gl.length?kapBox(gl):null;o.H=(back&&gb)?[tax[0][0],gb.y0+gb.h*.55]:kapLerp(tax[0],tax[1],.05);
-      if(kn.length){var kb=kapBox(kn);o.K=[kb.cx,kb.cy];}else{var sax0=sh.length?kapAxis(sh,.08):null;o.K=sax0?kapLerp(tax[1],sax0[0],.5):tax[1];}
-      var sax=sh.length?kapAxis(sh,.08):null;if(an.length){var ab=kapBox(an);o.A=[ab.cx,ab.cy];}else if(sax){o.A=kapLerp(sax[1],sax[1],0);}
+    if(ub.length&&fa.length){var uax=kapAxis(ub,.1);var fax=kapAxis(fa,.1);var elbowY=arm.length?kapBox(arm).y1:fax[0][1];var J1=[(fax[0][0]+kapAxis(arm.length?arm:ub,.1)[1][0])/2,(fax[0][1]+elbowY)/2];var J0=kapLerp(uax[0],uax[1],.12);var J2=fax[1];var J3=J2;if(ha.length){var far=0;ha.forEach(function(q){var d=Math.hypot(q[0]-J2[0],q[1]-J2[1]);if(d>far){far=d;J3=q;}});}o.J0=J0;o.J1=J1;o.J2=J2;o.J3=J3;}
+    if(th.length){var tax=kapAxis(th,.08);var gb=gl.length?kapBox(gl):null;o.H=(back&&gb)?[tax[0][0],gb.y0+gb.h*.55]:kapLerp(tax[0],tax[1],.05);
+      var sax=sh.length?kapAxis(sh,.08):null;if(kn.length){var kb=kapBox(kn);o.K=[kb.cx,kb.cy];}else{o.K=sax?kapLerp(tax[1],sax[0],.5):tax[1];}
+      if(an.length){var ab=kapBox(an);o.A=[ab.cx,ab.cy];}else if(sax){o.A=sax[1];}
       if(ft.length){var fb=kapBox(ft);o.F=[fb.cx,fb.y1-3];}}
     out[s]=o;});
-  return out;}
+  svg.innerHTML='';KAPM.cache[key]=out;return out;}
 function kapMirrorPt(p){return[2*KAPFIT.cx0-p[0],p[1]];}
 function kapFitBones(){var bo=document.getElementById('bone-overlay');if(!bo||bo.style.display==='none')return;var root=bo.querySelector('.kap-anat');if(!root)return;try{kapFitInit(bo);}catch(e){return;}if(!KAPFIT.done)return;
   var lm=kapLandmarks();if(!lm)return;var S=KAPFIT.srcAx,E=KAPFIT.els,MIR=KAPFIT.MIR;

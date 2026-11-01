@@ -16,3 +16,7 @@
 ## Step 04b（2026-11-01）
 - `src/worker.js`：新增骨骼擬合模組（`kapFitBones`、`kapSyncOverlay`、`kapCloneMirrors` 等）；`setBoneFit` 改轉呼叫；`mountSkeleton` 在 wire 前複製鏡像；`syncBoneLayer.vec()` 顯示後呼叫擬合。無資料表改動。
 - `docs/uiux-handoff/src/`：`step04b-fit.js`、`inject-step04.cjs`、`test-step04-*.cjs`；`step04/screens/` 3 張。
+
+## Step 04c–e（2026-11-01）
+- `src/worker.js`：角色色 CSS、`mp-idle`／`mp-stab` class（renderSVG 一行）、圖例、放大控制（`kapApplyZoom` 包裝 `renderSVG`）、筋膜缺圖提示（包裝 `updateFasciaOverlay`）；骨骼擬合改以離屏 svg 從 `BODY_PATHS` 量測。無資料表改動。
+- `docs/uiux-handoff/`：`BONE_ART_BRIEF_FOR_GPT_GEMINI.md`、`src/step04c.js`、`inject-step04c.cjs`、`test-step04c-roles-zoom-fascia.cjs`、`step04/screens/` 新增 4 張。

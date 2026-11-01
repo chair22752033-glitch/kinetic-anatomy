@@ -1,5 +1,6 @@
-繼續 Kinetic Anatomy Pro UI/UX 重構。先讀 docs/uiux-handoff/CHECKPOINT.md（含 Step 04b 骨骼貼合結果與限制）、DECISIONS.md（D7、D8）、QA_RESULTS.md、STEP_PLAN.md、PRESERVE_MAP.md，再讀設計包 STEPS/04_人體與互動.md、02_SPEC/03_視覺規格.md，看 D02/D03/M02。
-核對 git HEAD 與 CHECKPOINT；分支 claude/npm-install-fst7qc；不 push master。
-本輪 Step 04 剩餘：04c 角色色映射（主力 coral #B7523B／幫手 amber #906A25／穩定 blue #416D91，只在 UI 層映射，不改 EX 的 col）＋非焦點肌肉改 anatomy-neutral #C9D1C5（renderSVG 目前用 SC[slug]||'#3a3a3a' 深灰，可用 CSS 或視圖層覆蓋，不改資料）、圖例要有文字；04d 放大 1–2.5＋重設（+/−/重設按鈕，保留雙擊重置，先不做自由平移；放大時覆蓋層必須與 bsvg 同步，kapSyncOverlay 以 bsvg 方框為準）；04e FASCIA_MAP 引用 fo-dfl／fo-sbal 但 overlay 只有 fo-sbl／fo-sfl／fo-ll／fo-fal／fo-fl，先查動態注入來源，缺圖用文字 fallback（不自畫）；04a 單一選取狀態。
-注意：骨骼擬合在 docs/uiux-handoff/src/step04b-fit.js（注入器 inject-step04.cjs 冪等）；樣式 ka-ui-v2.css、step03.js 同理。測試：test-step04-*.cjs。頁面以 render-page.cjs 產生。
+繼續 Kinetic Anatomy Pro UI/UX 重構。先讀 docs/uiux-handoff/CHECKPOINT.md、DECISIONS.md（D7–D11）、QA_RESULTS.md、STEP_PLAN.md、PRESERVE_MAP.md。分支 claude/npm-install-fst7qc；不 push master。
+分支條件：
+(A) 使用者已提供骨骼 PNG（依 BONE_ART_BRIEF_FOR_GPT_GEMINI.md 的檔名）→ 先做 Step 04f：去背／檢查檔案、以 <image> 套 04b 擬合變換、向量骨骼改隱形點擊區、體積 < 1MB gzip（圖縮到約 600–800px 長邊轉 WebP）、四視圖＋放大驗證、保留逐骨點擊。
+(B) 否則 Step 05：讀設計包 STEPS/05_分層說明與手機面板.md、02_SPEC/02（D03／M03／M04）。白話／專業閱讀深度（沿用 kap-simple／kap_pro，不新增同名開關）、daily 提前到肌肉詳情第一段、百分比旁標示「原資料庫的教學示意值，未經個人量測」、專業手法前先顯示 contra、手機只開一個 bottom sheet（背景鎖捲動、焦點進入、Esc 關閉、返回觸發處）、統一詳情；在此建立 04a 單一選取狀態。
+工具與注入器：docs/uiux-handoff/src/（render-page.cjs；ka-ui-v2.css＋inject-ka-ui-v2.cjs；step03.js＋inject-step03.cjs；step04b-fit.js＋inject-step04.cjs；step04c.js＋inject-step04c.cjs 皆冪等；test-*.cjs 為回歸）。
 完成後更新五份文件並附截圖與驗證。

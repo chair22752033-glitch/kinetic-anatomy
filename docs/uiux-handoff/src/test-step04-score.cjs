@@ -6,7 +6,7 @@ const [,, page]=process.argv;
  await ctx.addInitScript(()=>{localStorage.setItem('kap_onboard_v1','1');['lab','atlas','quest','home'].forEach(k=>localStorage.setItem('kap_coach_'+k,'1'));});
  const p=await ctx.newPage();await p.goto('file://'+page);await p.waitForTimeout(300);
  await p.evaluate(()=>goMain('squat'));await p.waitForTimeout(300);
- await p.evaluate(()=>document.querySelector('.layerbtn.bones').click());await p.waitForTimeout(700);
+ const mus=process.argv[3]==='muscles-off';if(mus)await p.evaluate(()=>document.querySelector('.layerbtn.muscles').click());await p.evaluate(()=>document.querySelector('.layerbtn.bones').click());await p.waitForTimeout(700);console.log('muscle layer',mus?'OFF':'ON');
  const score=()=>p.evaluate(()=>{
   const bs=document.getElementById('bsvg'),bo=document.getElementById('bone-overlay');
   const body=[...bs.querySelectorAll('path[data-slug]')];

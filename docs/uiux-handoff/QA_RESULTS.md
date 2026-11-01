@@ -57,3 +57,19 @@
 | gzip | 0.59 MB |
 | console／pageerror | none |
 | 未測 | iOS Safari 實機（含 getTotalLength 於 display 切換時的行為）、極窄寬 320 的肉眼檢視、讀屏 |
+
+## Step 04c–e
+| 項目 | 結果 |
+|---|---|
+| 角色色：深蹲股四頭肌 coral、腹直肌（穩定）blue、胸大肌（不參與）neutral；背面腿後肌群（幫手）amber | PASS（桌機＋手機） |
+| EX 資料色未被改（squat 股四頭肌 col 仍 #ff6b35） | PASS |
+| 圖例含角色文字與「非疼痛」提示 | PASS |
+| 放大：125→…→250%，到頂 +鍵停用；viewBox 不超出人形範圍；點 % 重設；雙擊畫布重設 | PASS |
+| 放大時骨骼覆蓋層方框與 viewBox 與肌肉層一致 | PASS |
+| 筋膜缺圖提示：弓箭步顯示 1 條無圖；深蹲不顯示 | PASS |
+| 肌肉層關閉時骨骼擬合（修正的 bug）男前／男後／女前／女後 | 99／98／95／97% |
+| 回歸：導覽／動作庫／首頁／首訪／骨骼點選與縮放／溢出 | PASS |
+| 資料指紋 | equal=true |
+| gzip | 0.60 MB |
+| console／pageerror | none |
+| 未測 | iOS Safari 實機、讀屏、200% 字級、放大時手指捏合（刻意不做）、筋膜覆蓋層放大時的視覺核對 |
